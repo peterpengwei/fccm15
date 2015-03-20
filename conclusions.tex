@@ -1,0 +1,10 @@
+\section{Conclusions} 
+\label{sec:conclusions}
+In this paper, we design a novel architecture to efficiently map the huge number of reads onto the human reference genome.
+Our proposed architecture focuses on accelerating the compute-intensive Smith-Waterman kernel used by the state-of-the-art aligner, BWA-MEM.
+To map the enormous number of seeds generated from the reads, we design an array-based architecture equipped with a large number of simple processing units.
+Since the seeds have various sizes, the PE array architecture can utilize the computation resource efficiently compared to the conventional wavefront-based architecture.
+Also, our two-level hierarchical architecture can reduce the FPGA fabric utilization for synthesizing data prefetching logics and provide efficient PE allocation.
+Furthermore, our design can be integrated to BWA-MEM, which extends the conventional S-W algorithm with pruning techiniques. 
+Our FPGA implementation demonstrates about 26.4x speedup compared to a 24-thread Intel Xeon server. 
+We also show that our design outperforms wavefront-based implementations by up to 6x under the same FPGA resource.

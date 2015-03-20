@@ -1,0 +1,559 @@
+Those fields that are not to be changed can be left out.
+@IEEEtranBSTCTL{IEEEexample:BSTcontrol,
+  CTLuse_article_number     = "yes",
+  CTLuse_paper              = "yes",
+  CTLuse_forced_etal        = "no",
+  CTLmax_names_forced_etal  = "10",
+  CTLnames_show_etal        = "1",
+  CTLuse_alt_spacing        = "yes",
+  CTLalt_stretch_factor     = "4",
+  CTLdash_repeated_names    = "no",
+  CTLname_format_string     = "{f.~}{vv~}{ll}{, jj}",
+  CTLname_latex_cmd         = "",
+  CTLname_url_prefix        = "[Online]. Available:"
+}
+
+@article{BWA,
+ author = {Li, Heng and Durbin, Richard},
+ title = {Fast and Accurate Short Read Alignment with {B}urrows-{W}heeler Transform},
+ journal = {Bioinformatics},
+ issue_date = {July 2009},
+ volume = {25},
+ number = {14},
+ month = jul,
+ year = {2009},
+ issn = {1367-4803},
+ pages = {1754--1760},
+ numpages = {7},
+ doi = {10.1093/bioinformatics/btp324},
+ acmid = {1576130},
+ publisher = {Oxford University Press},
+ address = {Oxford, UK},
+} 
+
+@article{BWA-SW,
+ author = {Li, Heng and Durbin, Richard},
+ title = {Fast and Accurate Long-read Alignment with {B}urrows-{W}heeler Transform},
+ journal = {Bioinformatics},
+ issue_date = {March 2010},
+ volume = {26},
+ number = {5},
+ month = mar,
+ year = {2010},
+ issn = {1367-4803},
+ pages = {589--595},
+ numpages = {7},
+ doi = {10.1093/bioinformatics/btp698},
+ acmid = {1741825},
+ publisher = {Oxford University Press},
+ address = {Oxford, UK},
+} 
+
+@UNPUBLISHED{BWA-MEM,
+  title         = {Aligning sequence reads, clone sequences and assembly contigs with {BWA-MEM}},
+  author        = "Li, Heng",
+  journal       = "arXiv [q-bio.GN]",
+  month         =  Mar,
+  year          =  2013,
+  archivePrefix = "arXiv",
+  eprint        = "1303.3997",
+  primaryClass  = "q-bio.GN",
+  arxivid       = "1303.3997"
+}
+ 
+@article{Bowtie,
+  abstract = {Bowtie is an ultrafast, memory-efficient alignment program for aligning
+	short DNA sequence reads to large genomes. For the human genome,
+	Burrows-Wheeler indexing allows Bowtie to align more than 25 million
+	reads per CPU hour with a memory footprint of approximately 1.3 gigabytes.
+	Bowtie extends previous Burrows-Wheeler techniques with a novel quality-aware
+	backtracking algorithm that permits mismatches. Multiple processor
+	cores can be used simultaneously to achieve even greater alignment
+	speeds. Bowtie is open source and available at http://bowtie.cbcb.umd.edu.},
+  author = {Langmead, Ben and Trapnell, Cole and Pop, Mihai and Salzberg, Steven},
+  description = {Next generation sequencing},
+  doi = {10.1186/gb-2009-10-3-r25},
+  issn = {1465-6906},
+  journal = {Genome Biology},
+  keywords = {bowtie sequencing short-reads},
+  number = 3,
+  pages = {R25},
+  title = {Ultrafast and memory-efficient alignment of short DNA sequences to
+	the human genome},
+  volume = 10,
+  year = 2009
+}
+
+@article{Bowtie2,
+	author = {Langmead, Ben and Salzberg, Steven},
+	journal = {Nature Method},
+  doi = {10.1038/nmeth.1923},
+	pages = {357-359},
+	title = {Fast gapped-read alignment with Bowtie 2},
+	volume = 9,
+	year = 2012
+}
+
+@INPROCEEDINGS{Arram2013, 
+	author={Arram, J. and Luk, W. and Peiyong Jiang}, 
+	booktitle={FPT}, 
+	title={Reconfigurable filtered acceleration of short read alignment}, 
+	year={2013}, 
+	month={Dec}, 
+	pages={438-441}, 
+	keywords={DNA;biology computing;biomedical electronics;data analysis;field programmable gate arrays;filters;BWA;FM-index;NGS;SOAP2;bidirectional backtracking;dual Intel X5650 CPUs;known reference genome;next generation DNA sequences;reconfigurable filtered acceleration;run-time reconfiguration;sequenced data analysis;sequenced data far outstrips Moore law;single FPGA;specific edit distance;suffix-trie based short read alignment methods;Acceleration;Bioinformatics;Field programmable gate arrays;Genomics;Hardware;Pipelines;Sociology}, 
+	doi={10.1109/FPT.2013.6718408},}
+
+@ARTICLE{Aluru2014, 
+	author={Aluru, S. and Jammula, N.}, 
+	journal={Design Test, IEEE}, 
+	title={A Review of Hardware Acceleration for Computational Genomics}, 
+	year={2014}, 
+	month={Feb}, 
+	volume={31}, 
+	number={1}, 
+	pages={19-30}, 
+	keywords={bioinformatics;field programmable gate arrays;genomics;graphics processing units;molecular biophysics;FPGA;GPU;bioinformatics;biological sequence analysis;computational genomics;conventional supercomputers;field programmable gate array;graphics processing unit;hardware acceleration;hardware accelerators;high performance computing solutions;high-throughput sequencing;programming effort;standalone CPU clusters;Accelerators;Computational biology;DNA;Databases;Field programmable gate arrays;Genomics;Graphics processing units;Hardware;High performance computing;FPGAs;GPUs;bioinformatics;computational genomics;hardware acceleration}, 
+	doi={10.1109/MDAT.2013.2293757}, 
+	ISSN={2168-2356},}
+
+@INPROCEEDINGS{Preusser2012, 
+	author={Preusser, T.B. and Knodel, O. and Spallek, R.G.}, 
+	booktitle={FCCM}, 
+	title={Short-Read Mapping by a Systolic Custom FPGA Computation}, 
+	year={2012}, 
+	pages={169-176}, 
+	abstract={The mapping of reads, i.e. short DNA base pair strings, to large genome databases has become a critical operation for genetic analysis and diagnosis. Although this mapping operation is a simple string search tolerant of some character mismatches, it is yet extremely challenging due to the tremendous size of the searched genome databases. It is the heavy use of search heuristics such as BLAST, Maq and Bowtie, which makes the economic deployment of read mappers possible. While these heuristics achieve feasible computation times, they also sacrifice the accuracy of the mapping results, which is itself a high value for reliable diagnostics. The traditional software implementations are unable to exploit the tremendous parallelism, which is available in the mapping of thousands and millions of reads. Merely a handful of concurrent control flows, and thus searches, can be performed efficiently on contemporary multicores. Even GPU assistance only enables a few dozens of parallel searches. This paper proposes a systolic custom computation on FPGA, which implements the read mapping on a massively parallel architecture. It implements a true search and guarantees to find all read mappings under a configurable threshold of base pair mismatches. The highly regular design from compact string matchers enables the implementation of thousands of parallel search engines on a single FPGA device. The presented map per platform combines highest computational performance with an excellent result accuracy. Its performance is more than twice as high as that of a recently published comparable FPGA map per. Already when implemented on a contemporary mid-size FPGA, it meets the search speed of software heuristics, which only detect little more than half of the valid read mappings. The map per easily scales to large FPGA devices, which can, thus, implement accurate high-performance volume mappers. Accurate mapping is made available in application domains that could only afford fuzzy heuristics- by now.}, 
+	keywords={biology computing;field programmable gate arrays;genomics;systolic arrays;BLAST;FPGA computation;Maq;base pair mismatches;character mismatches;diagnosis;fuzzy heuristics;genetic analysis;reliable diagnostics;search heuristics;searched genome databases;short DNA base pair strings;short-read mapping;software heuristics;software implementations;systolic custom computation;tremendous parallelism;Bioinformatics;Clocks;Concurrent computing;Databases;Field programmable gate arrays;Genomics;Table lookup;FPGA;Sequence Alignment;short-reads mapping}, 
+	doi={10.1109/FCCM.2012.37},}
+
+@INPROCEEDINGS{Olson2012, 
+	author={Olson, C.B. and Kim, M. and Clauson, C. and Kogon, B. and Ebeling, C. and Hauck, S. and Ruzzo, W.L.}, 
+	booktitle={FCCM}, 
+	title={Hardware Acceleration of Short Read Mapping}, 
+	year={2012}, 
+	pages={161-168}, 
+	abstract={Bioinformatics is an emerging field with seemingly limitless possibilities for advances in numerous areas of research and applications. We propose a scalable FPGA-based solution to the short read mapping problem in DNA sequencing, which greatly accelerates the task of aligning short length reads to a known reference genome. We compare the runtime, power consumption, and sensitivity of the hardware system to the BFAST and Bowtie software tools. The hardware system demonstrates a 250X speedup versus BFAST and a 31X speedup versus Bowtie on eight CPU cores. Also, the hardware system is more sensitive than Bowtie, which aligns approximately 80\% of the short reads, as compared to 91\% aligned by the hardware.}, 
+	keywords={DNA;bioinformatics;field programmable gate arrays;genetics;BFAST software tool;Bowtie software tool;DNA sequencing;bioinformatics;hardware acceleration;hardware system sensitivity;power consumption;reference genome;scalable FPGA-based solution;short read mapping;Arrays;Bioinformatics;Field programmable gate arrays;Genomics;Hardware;Indexes;FPGA;bioinformatics;mapping;nextgeneration sequencing;short reads}, 
+	doi={10.1109/FCCM.2012.36},}
+
+@INPROCEEDINGS{RaceLogic, 
+	author={Madhavan, A. and Sherwood, T. and Strukov, D.}, 
+	booktitle={ISCA}, 
+	title={Race Logic: A hardware acceleration for dynamic programming algorithms}, 
+	year={2014}, 
+	month={June}, 
+	pages={517-528}, 
+	keywords={CMOS integrated circuits;directed graphs;dynamic programming;logic design;minimax techniques;CMOS standard cell technology;DNA global sequence alignment engine;Race Logic;addition operation;directed acyclic graph;dynamic programming;energy efficiency;hardware acceleration;min-max operation;timing delay;Algorithm design and analysis;Arrays;DNA;Delays;Dynamic programming;Hardware;Logic gates;Directed Acyclic Graph;Dynamic Programming;Energy Efficient Circuits;Race Logic;Shortest-Path Problem;String Comparison}, 
+	doi={10.1109/ISCA.2014.6853226},}
+
+@article{Farrar2007,
+ author = {Farrar, Michael},
+ title = {Striped {S}mith-{W}aterman Speeds Database Searches Six Times over Other SIMD Implementations},
+ journal = {Bioinformatics},
+ issue_date = {January 2007},
+ volume = {23},
+ number = {2},
+ month = jan,
+ year = {2007},
+ issn = {1367-4803},
+ pages = {156--161},
+ numpages = {6},
+ doi = {10.1093/bioinformatics/btl582},
+ acmid = {1216641},
+ publisher = {Oxford University Press},
+ address = {Oxford, UK},
+} 
+
+@article{Rognes2000,
+  author = {Rognes, Torbjorn and Seeberg, Erling},
+  journal = {Bioinformatics},
+  number = 8,
+  pages = {699-706},
+  title = {Six-fold speed-up of {S}mith-{W}aterman sequence database searches using parallel processing on common microprocessors.},
+  volume = 16,
+  year = 2000
+}
+
+@TECHREPORT{BWT,
+    author = {M. Burrows and D. J. Wheeler},
+    title = {A block-sorting lossless data compression algorithm},
+    institution = {},
+    year = {1994}
+}
+
+@inproceedings{Ferragina2000,
+ author = {Ferragina, P. and Manzini, G.},
+ title = {Opportunistic Data Structures with Applications},
+ booktitle = {Proceedings of the 41st Annual Symposium on Foundations of Computer Science},
+ series = {FOCS '00},
+ year = {2000},
+ isbn = {0-7695-0850-2},
+ pages = {390--},
+ acmid = {796543},
+ publisher = {IEEE Computer Society},
+ address = {Washington, DC, USA},
+ keywords = {Glimpse tool, computational complexity, data compression, data indexing, data set, data structures, database indexing, database theory, entropy, opportunistic data structures, query performance, search, sublinear query time complexity, sublinear space complexity, succinct suffix array, suffix array data structures, suffix tree data structures},
+} 
+
+@article{Edmiston1988,
+	year={1988},
+	issn={0885-7458},
+	journal={International Journal of Parallel Programming},
+	volume={17},
+	number={3},
+	doi={10.1007/BF02427852},
+	title={Parallel processing of biological sequence comparison algorithms},
+	publisher={Kluwer Academic Publishers-Plenum Publishers},
+	keywords={Parallel computation; string matching; biological sequences},
+	author={Edmiston, ElizabethW. and Core, NolanG. and Saltz, JoelH. and Smith, RogerM.},
+	pages={259-275},
+	language={English}
+}
+
+@article{Mardis2008,
+	title = "The impact of next-generation sequencing technology on genetics ",
+	journal = "Trends in Genetics ",
+	volume = "24",
+	number = "3",
+	pages = "133 - 141",
+	year = "2008",
+	note = "",
+	issn = "0168-9525",
+	doi = "http://dx.doi.org/10.1016/j.tig.2007.12.007",
+	author = "Elaine R. Mardis"
+}
+
+@article{Smith1981,
+	title = "Identification of common molecular subsequences ",
+	journal = "Journal of Molecular Biology ",
+	volume = "147",
+	number = "1",
+	pages = "195 - 197",
+	year = "1981",
+	note = "",
+	issn = "0022-2836",
+	doi = "http://dx.doi.org/10.1016/0022-2836(81)90087-5",
+	author = "T.F. Smith and M.S. Waterman"
+}
+
+
+@article{Trapnell2009,
+Abstract = {Mapping the vast quantities of short sequence fragments produced by next-generation sequencing platforms is a challenge. What programs are available and how do they work?},
+	An = {PMC2836519},
+	Author = {Trapnell, Cole and Salzberg, Steven L},
+	Date = {2009/05/},
+	Date-Added = {2015-01-10 03:07:05 +0000},
+	Date-Modified = {2015-01-10 03:07:05 +0000},
+	Db = {PMC},
+	Doi = {10.1038/nbt0509-455},
+	Isbn = {1087-0156; 1546-1696},
+	J1 = {Nat Biotechnol},
+	Journal = {Nature biotechnology},
+	Month = {05},
+	Number = {5},
+	Pages = {455--457},
+	Title = {How to map billions of short reads onto genomes},
+	Ty = {JOUR},
+	Volume = {27},
+	Year = {2009},
+	Bdsk-Url-1 = {http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2836519/},
+	Bdsk-Url-2 = {http://dx.doi.org/10.1038/nbt0509-455}
+}
+
+
+@article{Wozniak1997,
+  author = {Wozniak, A.},
+  journal = {Computer Applications in the Biosciences},
+  number = 2,
+  pages = {145-150},
+  title = {Using video-oriented instructions to speed up sequence comparison.},
+  volume = 13,
+  year = 1997
+}
+
+@article{Manavski2008,
+  author = {Manavski, Svetlin and Valle, Giorgio},
+  journal = {BMC Bioinformatics},
+  number = {S-2},
+  title = {CUDA compatible GPU cards as efficient hardware accelerators for Smith-Waterman sequence alignment.},
+  volume = 9,
+  year = 2008
+}
+
+@article{Liu2013,
+  author = {Liu, Yongchao and Wirawan, Adrianto and Schmidt, Bertil},
+  journal = {BMC Bioinformatics},
+  pages = 117,
+  title = {CUDASW++ 3.0: accelerating Smith-Waterman protein database search by coupling CPU and GPU SIMD instructions.},
+  volume = 14,
+  year = 2013
+}
+
+@article{Rognes2011,
+  author = {Rognes, Torbjorn},
+  journal = {BMC Bioinformatics},
+  pages = 221,
+  title = {Faster Smith-Waterman database searches with inter-sequence SIMD parallelisation.},
+  volume = 12,
+  year = 2011
+}
+
+@article{Heng2010,
+		Abstract = {Rapidly evolving sequencing technologies produce data on an unparalleled scale. A central challenge to the analysis of this data is sequence alignment, whereby sequence reads must be compared to a reference. A wide variety of alignment algorithms and software have been subsequently developed over the past two years. In this article, we will systematically review the current development of these algorithms and introduce their practical applications on different types of experimental data. We come to the conclusion that short-read alignment is no longer the bottleneck of data analyses. We also consider future development of alignment algorithms with respect to emerging long sequence reads and the prospect of cloud computing.},
+			An = {PMC2943993},
+				Author = {Li, Heng and Homer, Nils},
+					Date = {2010/09/},
+						Date-Added = {2015-01-10 03:19:46 +0000},
+							Date-Modified = {2015-01-10 03:19:46 +0000},
+								Db = {PMC},
+									Doi = {10.1093/bib/bbq015},
+										Isbn = {1467-5463; 1477-4054},
+											J1 = {Brief Bioinform},
+												Journal = {Briefings in Bioinformatics},
+													Month = {09},
+														Number = {5},
+															Pages = {473--483},
+																Publisher = {Oxford University Press},
+																	Title = {A survey of sequence alignment algorithms for next-generation sequencing},
+																		Ty = {JOUR},
+																					Volume = {11},
+																						Year = {2010},
+																							Year1 = {2010/05/11},
+																								Year2 = {2010/03/03/received},
+																									Year3 = {2010/04/14/revised},
+																										Bdsk-Url-1 = {http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2943993/},
+																											Bdsk-Url-2 = {http://dx.doi.org/10.1093/bib/bbq015}}
+
+
+@article{BLAST1990,
+	title = "Basic local alignment search tool ",
+	journal = "Journal of Molecular Biology ",
+	volume = "215",
+	number = "3",
+	pages = "403 - 410",
+	year = "1990",
+	note = "",
+	issn = "0022-2836",
+	doi = "http://dx.doi.org/10.1016/S0022-2836(05)80360-2",
+	author = "Stephen F. Altschul and Warren Gish and Webb Miller and Eugene W. Myers and David J. Lipman"
+}
+
+@Article{LAST,
+	AUTHOR = {Frith, Martin and Hamada, Michiaki and Horton, Paul},
+	TITLE = {Parameters for accurate genome alignment},
+	JOURNAL = {BMC Bioinformatics},
+	VOLUME = {11},
+	YEAR = {2010},
+	NUMBER = {1},
+	PAGES = {80},
+	DOI = {10.1186/1471-2105-11-80},
+	PubMedID = {20144198},
+	ISSN = {1471-2105},
+	ABSTRACT = {BACKGROUND:Genome sequence alignments form the basis of much research. Genome alignment depends on various mundane but critical choices, such as how to mask repeats and which score parameters to use. Surprisingly, there has been no large-scale assessment of these choices using real genomic data. Moreover, rigorous procedures to control the rate of spurious alignment have not been employed.RESULTS:We have assessed 495 combinations of score parameters for alignment of animal, plant, and fungal genomes. As our gold-standard of accuracy, we used genome alignments implied by multiple alignments of proteins and of structural RNAs. We found the HOXD scoring schemes underlying alignments in the UCSC genome database to be far from optimal, and suggest better parameters. Higher values of the X-drop parameter are not always better. E-values accurately indicate the rate of spurious alignment, but only if tandem repeats are masked in a non-standard way. Finally, we show that gamma-centroid (probabilistic) alignment can find highly reliable subsets of aligned bases.CONCLUSIONS:These results enable more accurate genome alignment, with reliability measures for local alignments and for individual aligned bases. This study was made possible by our new software, LAST, which can align vertebrate genomes in a few hours http://last.cbrc.jp/ webcite.},
+}
+
+@article{SeqMap,
+	author = {Jiang, Hui and Wong, Wing Hung}, 
+	title = {SeqMap: mapping massive amount of oligonucleotides to the genome},
+	volume = {24}, 
+	number = {20}, 
+	pages = {2395-2396}, 
+	year = {2008}, 
+	doi = {10.1093/bioinformatics/btn429}, 
+	abstract ={Summary: SeqMap is a tool for mapping large amount of short sequences to the genome. It is designed for finding all the places in a reference genome where each sequence may come from. This task is essential to the analysis of data from ultra high-throughput sequencing machines. With a carefully designed index-filtering algorithm and an efficient implementation, SeqMap can map tens of millions of short sequences to a genome of several billions of nucleotides. Multiple substitutions and insertions/deletions of the nucleotide bases in the sequences can be tolerated and therefore detected. SeqMap supports FASTA input format and various output formats, and provides command line options for tuning almost every aspect of the mapping process. A typical mapping can be done in a few hours on a desktop PC. Parallel use of SeqMap on a cluster is also very straightforward.Contact: whwong@stanford.edu}, 
+		eprint = {http://bioinformatics.oxfordjournals.org/content/24/20/2395.full.pdf+html}, 
+		journal = {Bioinformatics} 
+}
+
+@article{SOAP,
+	author = {Li, Ruiqiang and Li, Yingrui and Kristiansen, Karsten and Wang, Jun}, 
+	title = {SOAP: short oligonucleotide alignment program},
+	volume = {24}, 
+	number = {5}, 
+	pages = {713-714}, 
+	year = {2008}, 
+	doi = {10.1093/bioinformatics/btn025}, 
+	abstract ={Summary: We have developed a program SOAP for efficient gapped and ungapped alignment of short oligonucleotides onto reference sequences. The program is designed to handle the huge amounts of short reads generated by parallel sequencing using the new generation Illumina-Solexa sequencing technology. SOAP is compatible with numerous applications, including single-read or pair-end resequencing, small RNA discovery and mRNA tag sequence mapping. SOAP is a command-driven program, which supports multi-threaded parallel computing, and has a batch module for multiple query sets.Availability: http://soap.genomics.org.cnContact: soap@genomics.org.cn}, 
+		eprint = {http://bioinformatics.oxfordjournals.org/content/24/5/713.full.pdf+html}, 
+		journal = {Bioinformatics} 
+}
+
+
+@article{BFAST,
+	    author = {Homer, Nils AND Merriman, Barry AND Nelson, Stanley F.},
+	        journal = {PLoS ONE},
+		    publisher = {Public Library of Science},
+		        title = {BFAST: An Alignment Tool for Large Scale Genome Resequencing},
+			    year = {2009},
+			        month = {11},
+				    volume = {4},
+					    pages = {e7767},
+					        abstract = {<sec>
+							<title>Background</title>
+								<p>The new generation of massively parallel DNA sequencers, combined with the challenge of whole human genome resequencing, result in the need for rapid and accurate alignment of billions of short DNA sequence reads to a large reference genome. Speed is obviously of great importance, but equally important is maintaining alignment accuracy of short reads, in the 25–100 base range, in the presence of errors and true biological variation.</p>
+								</sec><sec>
+								<title>Methodology</title>
+								<p>We introduce a new algorithm specifically optimized for this task, as well as a freely available implementation, BFAST, which can align data produced by any of current sequencing platforms, allows for user-customizable levels of speed and accuracy, supports paired end data, and provides for efficient parallel and multi-threaded computation on a computer cluster. The new method is based on creating flexible, efficient whole genome indexes to rapidly map reads to candidate alignment locations, with arbitrary multiple independent indexes allowed to achieve robustness against read errors and sequence variants. The final local alignment uses a Smith-Waterman method, with gaps to support the detection of small indels.</p>
+								</sec><sec>
+								<title>Conclusions</title>
+								<p>We compare BFAST to a selection of large-scale alignment tools - BLAT, MAQ, SHRiMP, and SOAP - in terms of both speed and accuracy, using simulated and real-world datasets. We show BFAST can achieve substantially greater sensitivity of alignment in the context of errors and true variants, especially insertions and deletions, and minimize false mappings, while maintaining adequate speed compared to other current methods. We show BFAST can align the amount of data needed to fully resequence a human genome, one billion reads, with high sensitivity and accuracy, on a modest computer cluster in less than 24 hours. BFAST is available at <ext-link xmlns:xlink="http://www.w3.org/1999/xlink" ext-link-type="uri" xlink:href="http://bfast.sourceforge.net" xlink:type="simple">http://bfast.sourceforge.net</ext-link>.</p>
+								</sec>},
+						    number = {11},
+						        doi = {10.1371/journal.pone.0007767}
+}        
+
+@article{Heng2012,
+	author = {Li, Heng}, 
+	title = {Exploring single-sample SNP and INDEL calling with whole-genome de novo assembly},
+	volume = {28}, 
+	number = {14}, 
+	pages = {1838-1844}, 
+	year = {2012}, 
+	doi = {10.1093/bioinformatics/bts280}, 
+	abstract ={Motivation: Eugene Myers in his string graph paper suggested that in a string graph or equivalently a unitig graph, any path spells a valid assembly. As a string/unitig graph also encodes every valid assembly of reads, such a graph, provided that it can be constructed correctly, is in fact a lossless representation of reads. In principle, every analysis based on whole-genome shotgun sequencing (WGS) data, such as SNP and insertion/deletion (INDEL) calling, can also be achieved with unitigs.Results: To explore the feasibility of using de novo assembly in the context of resequencing, we developed a de novo assembler, fermi, that assembles Illumina short reads into unitigs while preserving most of information of the input reads. SNPs and INDELs can be called by mapping the unitigs against a reference genome. By applying the method on 35-fold human resequencing data, we showed that in comparison to the standard pipeline, our approach yields similar accuracy for SNP calling and better results for INDEL calling. It has higher sensitivity than other de novo assembly based methods for variant calling. Our work suggests that variant calling with de novo assembly can be a beneficial complement to the standard variant calling pipeline for whole-genome resequencing. In the methodological aspects, we propose FMD-index for forward–backward extension of DNA sequences, a fast algorithm for finding all super-maximal exact matches and one-pass construction of unitigs from an FMD-index.Availability: http://github.com/lh3/fermiContact: hengli@broadinstitute.org}, 
+		eprint = {http://bioinformatics.oxfordjournals.org/content/28/14/1838.full.pdf+html}, 
+		journal = {Bioinformatics} 
+}
+
+@article{Needleman1970,
+	title = "A general method applicable to the search for similarities in the amino acid sequence of two proteins ",
+	journal = "Journal of Molecular Biology ",
+	volume = "48",
+	number = "3",
+	pages = "443 - 453",
+	year = "1970",
+	note = "",
+	issn = "0022-2836",
+	doi = "http://dx.doi.org/10.1016/0022-2836(70)90057-4",
+	author = "Saul B. Needleman and Christian D. Wunsch"
+}
+
+@INPROCEEDINGS{Ramdas2005, 
+	author={Ramdas, T. and Egan, G.}, 
+	booktitle={TENCON 2005 2005 IEEE Region 10}, 
+	title={A Survey of FPGAs for Acceleration of High Performance Computing and their Application to Computational Molecular Biology}, 
+	year={2005}, 
+	month={Nov}, 
+	pages={1-6}, 
+	keywords={DNA;biology computing;field programmable gate arrays;molecular biophysics;proteins;DNA sequences;FPGA;computational molecular biology;custom computing machines;high performance computing;integration problems;molecular biocomputation workflows;programming problems;protein sequences;sequence alignment algorithms;software implementation;Acceleration;Application software;Biology computing;Computational biology;Computer applications;DNA computing;Field programmable gate arrays;High performance computing;Proteins;Sequences}, 
+	doi={10.1109/TENCON.2005.300963},}
+
+@INPROCEEDINGS{Sarkar2010, 
+	author={Sarkar, S. and Majumder, T. and Kalyanaraman, A. and Pande, P.P.}, 
+	booktitle={Circuits and Systems (ISCAS), Proceedings of 2010 IEEE International Symposium on}, 
+	title={Hardware accelerators for biocomputing: A survey}, 
+	year={2010}, 
+	month={May}, 
+	pages={3789-3792}, 
+	keywords={biocomputing;bioinformatics;biology computing;field programmable gate arrays;genomics;microprocessor chips;FPGA;GPU;biocomputing;biological discovery;cell broadband engine;genomic sector;graphic processing unit;hardware accelerator;multicore processor;Bioinformatics;Biology computing;Drives;Engines;Field programmable gate arrays;Genomics;Graphics;Hardware;Large-scale systems;Machinery}, 
+	doi={10.1109/ISCAS.2010.5537736},}
+
+@inproceedings{Zhang2007,
+	 author = {Zhang, Peiheng and Tan, Guangming and Gao, Guang R.},
+	  title = {Implementation of the Smith-Waterman Algorithm on a Reconfigurable Supercomputing Platform},
+	   booktitle = {Proceedings of the 1st International Workshop on High-performance Reconfigurable Computing Technology and Applications: Held in Conjunction with SC07},
+	     year = {2007},
+	      isbn = {978-1-59593-894-7},
+	       location = {Reno, Nevada},
+	        pages = {39--48},
+		 numpages = {10},
+		   doi = {10.1145/1328554.1328565},
+		    acmid = {1328565},
+		       keywords = {FPGA, Smith-Waterman algorithm, coprocessor, reconfigurable supercomputing},
+} 
+
+@article{Kim2011,
+	  title={Accelerating Next Generation Genome Reassembly: Alignment Using Dynamic Programming Algorithms in FPGAs},
+	    author={Kim, Maria},
+	      journal={University of Washington, Dept. of EE, MS Thesis},
+	        year={2011}
+}
+
+@INPROCEEDINGS{Knodel2011, 
+	author={Knodel, O. and Preusser, T.B. and Spallek, R.G.}, 
+	booktitle={ASAP}, 
+	title={Next-generation massively parallel short-read mapping on FPGAs}, 
+	year={2011}, 
+	pages={195-201}, 
+	keywords={DNA;biology computing;database management systems;field programmable gate arrays;genomics;molecular biophysics;parallel processing;software tools;BLAST;Bowtie;DNA sequence mapping;FPGA-based custom computation;Maq;Xilinx FPGA architecture;analysis tool;diagnostic tool;genome databases;molecular biology;next-generation massively parallel short-read mapping;next-generation sequencing technologies;software tools;string search;Bioinformatics;Databases;Field programmable gate arrays;Genomics;Random access memory;Software;Table lookup;FPGA;Sequence Alignment;Short-Read Mapping}, 
+	doi={10.1109/ASAP.2011.6043268}, 
+	ISSN={2160-0511},}
+
+@INPROCEEDINGS{Fernandez2010, 
+	author={Fernandez, E. and Najjar, W. and Harris, E. and Lonardi, S.}, 
+	booktitle={Field Programmable Logic and Applications (FPL), 2010 International Conference on}, 
+	title={Exploration of Short Reads Genome Mapping in Hardware}, 
+	year={2010}, 
+	month={Aug}, 
+	pages={360-363}, 
+	keywords={bioinformatics;cellular biophysics;field programmable gate arrays;genomics;logic design;parallel architectures;string matching;ABI SOLiD;FPGA implementation;Illumina-Solexa genome analyzer;genome mapping;hashing schemes;large data structures;read-genome alignment;sequenced genome;sequencing errors;software tools;string matching;Reconfigurable computing;bioinformatics;component;string-matching}, 
+	doi={10.1109/FPL.2010.78}, 
+	ISSN={1946-1488},}
+
+@incollection{Yu2005,
+	year={2005},
+	isbn={978-1-4020-3127-4},
+	booktitle={New Algorithms, Architectures and Applications for Reconfigurable Computing},
+	editor={Lysaght, Patrick and Rosenstiel, Wolfgang},
+	doi={10.1007/1-4020-3128-9_23},
+	title={A Smith-Waterman Systolic Cell},
+	publisher={Springer US},
+	keywords={Field programmable gate arrays; Systolic arrays; Biochemistry},
+	author={Yu, C.W. and Kwong, K.H. and Lee, K.H. and Leong, P.H.W.},
+	pages={291-300},
+	language={English}
+}
+
+@incollection{Wayne2013,
+	year={2013},
+	isbn={978-3-642-36811-0},
+	booktitle={Reconfigurable Computing: Architectures, Tools and Applications},
+	volume={7806},
+	series={Lecture Notes in Computer Science},
+	editor={Brisk, Philip and de Figueiredo Coutinho, JoséGabriel and Diniz, PedroC.},
+	title={Hardware Acceleration of Genetic Sequence Alignment},
+	publisher={Springer Berlin Heidelberg},
+	author={Arram, J. and Tsoi, K.H. and Luk, Wayne and Jiang, P.},
+	pages={13-24},
+	language={English}
+}
+
+@inproceedings{Lam2013,
+	  title={BSW: FPGA-accelerated BLAST-Wrapped Smith-Waterman aligner.},
+	    author={Lam, Bryant C and Pascoe, Carlo and Schaecher, Scott and Lam, Herman and George, Alan D},
+	      booktitle={ReConFig},
+	        pages={1--7},
+		  year={2013}
+}
+
+@Article{Mardis2006,
+AUTHOR = {Mardis, Elaine},
+TITLE = {Anticipating the \$1,000 genome},
+JOURNAL = {Genome Biology},
+VOLUME = {7},
+YEAR = {2006},
+NUMBER = {7},
+PAGES = {112},
+DOI = {10.1186/gb-2006-7-7-112},
+PubMedID = {17224040},
+ISSN = {1465-6906},
+ABSTRACT = {A new generation of DNA-sequencing platforms will become commercially available over the next few years. These instruments will enable re-sequencing of human genomes at a previously unimagined throughput and low cost. Here, I examine why the $1,000 human genome is an important goal for research and clinical diagnostics, and what will be required to achieve it.},
+}
+
+@inproceedings{Cong2004,
+	 author = {Cong, Jason and Fan, Yiping and Han, Guoling and Zhang, Zhiru},
+	  title = {Application-specific Instruction Generation for Configurable Processor Architectures},
+	   booktitle = {Proceedings of the 2004 ACM/SIGDA 12th International Symposium on Field Programmable Gate Arrays},
+	    series = {FPGA '04},
+	     year = {2004},
+	      isbn = {1-58113-829-6},
+	       location = {Monterey, California, USA},
+	        pages = {183--189},
+		 numpages = {7},
+		   doi = {10.1145/968280.968307},
+		    acmid = {968307},
+		     publisher = {ACM},
+		      address = {New York, NY, USA},
+		       keywords = {ASIP, binate covering, compilation, configurable processor, technology mapping},
+}
