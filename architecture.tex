@@ -3,21 +3,20 @@
 \subsection{Overall Architecture}
 
 Our accelerator engine is composed of (1) multiple PE arrays, (2) AXI-bus masters, and (3) PCIe-bus controllers (as shown in Figure \ref{fig:overall_architecture}).
-In our design, each PE acts as one kernel and can take one S-W task, 
-which follows the design methodology of Design 3 proposed in Section \ref{sec:approach} to maximize the throughput.
+In our design, each PE acts as one kernel and can take one S-W task to maximize throughput.
 
 \begin{figure}[!hbt]
 \begin{center}
 \includegraphics[width=2.8in]{Figures/Figure_Arch1.jpg}
 \caption {Overall architecture of the proposed accelerator engine} \label{fig:overall_architecture} \end{center} \end{figure}
 
-Before a PE starts to operate, the host processor assembles a set of query and target sequence pairs and streams them to the on-board DDR3 memory via the PCIe bus. 
-After that, the task distributor inside a PE array fetches the sequence pairs and distributes them to the idled PEs. 
+Before the accelerator starts to operate, the host processor assembles a set of query and target sequence pairs and streams them to the on-board DDR3 memory via the PCIe bus. 
+Then, the task distributor inside each PE array fetches a certain part of sequence pairs and distributes them to the idled PEs. 
 The resulting mappings are stored in the on-board memory and then sent back to the host.
 
 \subsection{Processing Element (PE) Design}
 
-A PE realizes the extended S-W algorithm obtained from the software implementation in BWA-MEM. 
+A PE realizes the S-W code obtained from the software implementation in BWA-MEM. 
 Listing \ref{list:ksw_extend2} shows the C kernel function, \textit{ksw\_extend2()}, 
 which contains a two-level nested loop to accomplish the alignment procedure.
 The score matrix is filled column by column.

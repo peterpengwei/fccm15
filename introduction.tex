@@ -1,62 +1,57 @@
 \section{Introduction} 
 \label{sec:introduction}
 
-The advent of next-generation sequencing (NGS) technologies dramatically reduces the cost of genome sequencing. 
-Today's sequencing technologies can obtain a genome for an individual for \$1,000 or less \cite{Mardis2006}. 
-The technology can be widely used in research and is transitioning into the clinic for applications such as precision medicine for cancer treatment. 
-Next-generation sequencers are more cost-effective because they generate the sequence 
-from very small fragments (reads) of length in the range of a few hundred nucleotides. 
-Mapping billions of sequenced fragments onto a genome sequence by taking advantage of the known human genome sequence 
-is called resequencing, and it entails tremendous computational challenges.
+The advent of next-generation sequencing (NGS) technologies dramatically reduces the cost of genome sequencing and attracts attentions from both researchers and clinicians. 
+In the NGS flow, a sequencer chops copies of DNA of a human sample into billions of small fragments, called reads, and examines each read's nucleotides. 
+A software aligner then maps all the billions of sequenced reads onto a reference human genome, entailing tremendous computational challenges.
+The term ``base-pair'' (bp) is commonly used as the unit of nucleotide. %for the rest of discussion.
+A read typically consists of hundreds of bps while the reference genome has 3.2 billion bps \cite{Mardis2008}.
+
+
+%%The advent of next-generation sequencing (NGS) technologies dramatically reduces the cost of genome sequencing. 
+%%Today's sequencing technologies can obtain a genome for an individual for \$1,000 or less \cite{Mardis2006}. 
+%%The technology can be widely used in research and is transitioning into the clinic for applications such as precision medicine for cancer treatment. 
+%%Next-generation sequencers are more cost-effective because they generate the sequence 
+%%from very small fragments (reads) of length in the range of a few hundred nucleotides. 
+%%Mapping billions of sequenced fragments onto a genome sequence by taking advantage of the known human genome sequence 
+%%is called resequencing, and it entails tremendous computational challenges.
 
 Current state-of-the-art tools, such as BWA-MEM \cite{BWA}\cite{BWA-SW}\cite{BWA-MEM} and Bowtie 2 \cite{Bowtie}\cite{Bowtie2}, 
 carry out the read mapping with two steps. 
-First, a seeding step can generate a number of smaller seeds from each read. 
-State-of-the-art tools, such as BWA-MEM \cite{BWA-MEM} and Bowtie 2 \cite{Bowtie2}, 
-use the backward search to exactly map the seeds to the reference genome encoded by the Burrows-Wheeler Transform (BWT) \cite{BWT}.
-%use the backward search \cite{Ferragina2000} to exactly map the seeds to the reference genome encoded by Burrows-Wheeler Transform (BWT) \cite{BWT}.
-The mapping process takes only O($m$) time for a seed of length $m$ and is independent of the size of the reference genome.
+First, each read is fragmented into small pieces called seeds, and mapped to the reference genome. 
+The mapping of seeds to the reference genome is required to be exact, i.e. no gap or mismatch is allowed. 
+A backward search algorithm based on the Burrows-Wheeler Transform (BWT) \cite{BWT} takes only O($m$) time for a seed of length $m$ mapping to the super-long reference genome, independent of the size of the reference genome, and therefore employed by almost all contemporary sequence aligners.
 
-However, due to the genome differences between individuals and the errors arising from sequencers,
-inexact mappings are needed in order to find mappings with gaps (insertions, deletions, and mismatches) allowed. 
-In the second step, the classic S-W algorithm is used to find inexact mappings.
-Compared to the exact mapping with linear time complexity, the S-W algorithm is a dynamic programming algorithm 
-with quadratic complexity; it thus becomes the main computation bottleneck in current state-of-the-art tools like BWA-MEM \cite{BWA-MEM}. 
+In the second step, each seed mapping gets extended leftward and rightward till the entire read. 
+The extensions are deemed as inexact mappings, in which gaps and mismatches are allowed. A pre-defined scoring function is provided for evaluating the effectiveness of inexact mappings. Only the ones achieving high enough scores are recorded in the output. 
+The S-W algorithm, a dynamic programming algorithm with quadratic time complexity, is the classic approach to address this problem. 
+It then becomes the main computation bottleneck in current state-of-the-art tools like BWA-MEM \cite{BWA-MEM}, 
+compared to the BWT-based mapping with only linear time complexity. 
 In this work, we focus on accelerator design for accelerating the S-W algorithm.
 
-The hardware acceleration of the S-W algorithm has been studied in multi-core CPUs with SIMD vector engines, GPUs, and FPGAs. 
-In \cite{Wozniak1997}\cite{Farrar2007}\cite{Rognes2011}, 
-the authors redesigned the S-W algorithms based on the architecture of a multi-core CPU with SIMD vector engines for acceleration. 
-The wavefront-based \cite{Wozniak1997} and column-based \cite{Farrar2007}\cite{Rognes2011} algorithms were proposed to map to the vector engines, respectively.
-Several GPU implementations, such as the work in \cite{Manavski2008} and CUDASW++ 3.0 \cite{Liu2013}, demonstrated the speedups over SIMD CPU implementations \cite{Farrar2007}\cite{Rognes2011}.
-The research in \cite{Preusser2012}\cite{RaceLogic}\cite{Zhang2007}\cite{Yu2005}\cite{Kim2011} exploited the anti-diagonal parallelism of S-W algorithm 
-and implemented wavefront-based architectures on FPGA.
-However, none of the proposed methods can be effectively integrated into BWA-MEM where the S-W algorithm is extended
-to prune the solution space for better performance of long reads.
+%%%The hardware acceleration of the S-W algorithm has been studied in multi-core CPUs with SIMD vector engines, GPUs, and FPGAs. 
+%%%In \cite{Wozniak1997}\cite{Farrar2007}\cite{Rognes2011}, 
+%%%the authors redesigned the S-W algorithms based on the architecture of a multi-core CPU with SIMD vector engines for acceleration. 
+%%%The wavefront-based \cite{Wozniak1997} and column-based \cite{Farrar2007}\cite{Rognes2011} algorithms were proposed to map to the vector engines, respectively.
+%%%Several GPU implementations, such as the work in \cite{Manavski2008} and CUDASW++ 3.0 \cite{Liu2013}, demonstrated the speedups over SIMD CPU implementations \cite{Farrar2007}\cite{Rognes2011}.
+%%%The research in \cite{Preusser2012}\cite{RaceLogic}\cite{Zhang2007}\cite{Yu2005}\cite{Kim2011} exploited the anti-diagonal parallelism of S-W algorithm 
+%%%and implemented wavefront-based architectures on FPGA.
+%%%However, none of the proposed methods can be effectively integrated into BWA-MEM where the S-W algorithm is extended
+%%%to prune the solution space for better performance of long reads.
 
-The extended S-W algorithm used in BWA-MEM introduces three major challenges, which are not considered in conventional S-W hardware acceleration techniques \cite{Wozniak1997}\cite{Farrar2007}\cite{Rognes2011}\cite{Manavski2008}\cite{Liu2013}\cite{Preusser2012}\cite{RaceLogic}\cite{Zhang2007}\cite{Yu2005}\cite{Kim2011}. 
-First, a huge number of reads at the billion scale need to be processed with high throughput.
+Hardware acceleration of the S-W algorithm has been studied in various platforms. 
+However, the approaches for accelerating the general S-W algorithm do not fit very well for the mainstream sequence aligners such as BWA-MEM. 
+First, a huge number of reads at the billion scale need to be processed with high throughput. 
+Conventional approaches may result in an overemphasis on inner-task parallelism. 
 Second, in BWA-MEM, the seeding process further generates more seeds with highly varied sizes to be processed by the S-W algorithm. 
 Conventional wavefront-based architectures cannot utilize computational resources efficiently when the input sizes vary. 
-Third, the techniques developed for conventional SIMD algorithms \cite{Wozniak1997}\cite{Farrar2007}\cite{Rognes2011} 
-and GPU/FPGA-based architectures \cite{Manavski2008}\cite{Liu2013}\cite{Preusser2012}\cite{RaceLogic}\cite{Zhang2007}\cite{Yu2005}\cite{Kim2011}, 
-cannot be directly adopted due to the pruning heuristic used in BWA-MEM.
+Third, the pruning heuristic used in BWA-MEM prevents conventional solutions from being adopted directly and efficiently.
 
-In this paper, we propose a novel architecture that can be mapped into the FPGA.
+In this paper, we propose an architecture to address these issues.
 Our architecture novelties can be summarized as follows.
-(1)	We propose an array-based architecture for processing the enormous number of seeds.
-Each processing element (PE) in an PE array is a lightweight computation unit which is flexible enough to support the pruning S-W algorithm 
-but much more resource-efficient than the expensive wavefront-based design. 
-With the simple PE design, we can maximize the number of PEs on the FPGA board 
-and thus process the enormous number of seeds in a high-throughput fashion.
-Furthermore, this design style can adapt to seeds with various sizes better, 
-which achieves a higher utilization rate of PEs than that of wavefront-based architectures.
-(2)	We provide a two-level hierarchical architecture, which is composed of multiple PE arrays, for resource management.
-Each PE array has a task distributor for PE allocation and uses a single AXI interface to prefetch data from off-chip DRAM.
-Instead of using one AXI interface per PE, this design strategy can significantly save FPGA fabrics while satisfying the off-chip bandwidth demand.
-(3) Our design supports the pruning technique, and thus can be directly integrated with the state-of-the-art BWA-MEM \cite{BWA-MEM}. 
-The pruning technique can reduce the solution space of the S-W algorithm significantly, 
-especially when the length a read grows longer in the near future \cite{BWA-SW}\cite{BWA-MEM}.
+(1) We propose an array-based architecture for processing the enormous number of seeds, processing the enormous number of seeds in a high-throughput fashion and adapting to seeds with various sizes better.
+(2) We provide a two-level hierarchical architecture for resource management, saving FPGA fabrics while satisfying the off-chip bandwidth demand.
+(3) Our design supports the pruning technique, reducing the solution space of the S-W algorithm significantly. 
 
-Our FPGA implementation demonstrates a 26.4x speedup compared to a 24-thread Intel Haswell Xeon server for the extended Smith-Waterman algorithm used in the state-of-the-art aligner, BWA-MEM.
+Our FPGA implementation demonstrates a 26.4x speedup compared to a 24-thread Intel Haswell Xeon server for the S-W algorithm used in BWA-MEM.
 We also show that our design outperforms wavefront-based implementations by up to 6x with the same FPGA resource utilization.

@@ -413,19 +413,27 @@ line 4: Email: name@xyz.com}
 
 
 \begin{abstract}
-Next-generation sequencing is one of the most burgeoning technologies for biological research and clinical applications.
-A sequencer generates billions of reads collected from a single human sample.
-These reads need to be aligned to the human reference genome for further analysis.
-The state-of-the-art read aligners, such as BWA-MEM and Bowtie 2, use an extended Smith-Waterman (S-W) algorithm, which is compute-intensive, to perform read alignment. 
-While prior works have successfully accelerated the stand-alone classic S-W algorithm on FPGAs by exploiting the anti-diagonal parallelism, 
-they ignored the complexity of how to integrate the S-W algorithm into modern read aligners,  
-where the S-W algorithm is called with significantly varied input sizes, and extensive pruning is performed in the S-W algorithm.
-As a result, existing FPGA accelerators for the S-W algorithm are difficult and ineffective when integrated in the modern aligners.
-In this paper, we propose a novel architecture realized on FPGA to accelerate the extended S-W algorithm.
-The architecture achieves better performance than existing wavefront-based acceleration solutions when encountering significantly varied input sizes,
-as well as achieves further speedup by fully utilizing software pruning strategies for hardware acceleration.
-Compared to a 24-thread Intel Haswell Xeon server, our FPGA implementation demonstrates 26.4x speedup.
-We also show that our design outperforms wavefront-based implementations up to 6x with the same FPGA resource.
+The Smith-Waterman (S-W) algorithm is widely adopted by the state-of-the-art DNA sequece aligners.
+Existing wavefront-based works for accelerating S-W ignored the fact that S-W is called with significantly varied input sizes and extensive pruning in modern aligners. 
+In this paper, we propose an architecture, 
+tailored for varied input sizes as well as harnessing software pruning strategies, 
+to accelerate S-W. 
+Our implementation demonstrates 26x speedup over a 24-thread Intel Haswell Xeon server, 
+and outperforms wavefront-based implementations up to 6x with the same FPGA resource.
+%%%
+%%%Next-generation sequencing is one of the most burgeoning technologies for biological research and clinical applications.
+%%%A sequencer generates billions of reads collected from a single human sample.
+%%%These reads need to be aligned to the human reference genome for further analysis.
+%%%The state-of-the-art read aligners, such as BWA-MEM and Bowtie 2, use an extended Smith-Waterman (S-W) algorithm, which is compute-intensive, to perform read alignment. 
+%%%While prior works have successfully accelerated the stand-alone classic S-W algorithm on FPGAs by exploiting the anti-diagonal parallelism, 
+%%%they ignored the complexity of how to integrate the S-W algorithm into modern read aligners,  
+%%%where the S-W algorithm is called with significantly varied input sizes, and extensive pruning is performed in the S-W algorithm.
+%%%As a result, existing FPGA accelerators for the S-W algorithm are difficult and ineffective when integrated in the modern aligners.
+%%%In this paper, we propose a novel architecture realized on FPGA to accelerate the extended S-W algorithm.
+%%%The architecture achieves better performance than existing wavefront-based acceleration solutions when encountering significantly varied input sizes,
+%%%as well as achieves further speedup by fully utilizing software pruning strategies for hardware acceleration.
+%%%Compared to a 24-thread Intel Haswell Xeon server, our FPGA implementation demonstrates 26.4x speedup.
+%%%We also show that our design outperforms wavefront-based implementations up to 6x with the same FPGA resource.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -446,7 +454,7 @@ component; formatting; style; styling;
 
 
 \input{introduction}
-\input{motivation}
+%%%\input{motivation}
 \input{approach}
 \input{architecture}
 \input{results}
