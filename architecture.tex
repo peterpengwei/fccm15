@@ -4,18 +4,14 @@
 
 Our accelerator engine consists of multiple PE arrays connecting with the off-chip memory via AXI bus interface, as shown in Figure \ref{fig:overall_architecture}.
 Each PE acts as one kernel and can take one S-W task to maximize throughput.
-
 \begin{figure}[!hbt]
 \begin{center}
-\includegraphics[width=2.8in]{Figures/Figure_Arch1.jpg}
+\includegraphics[width=2.5in]{Figures/Figure_Arch1.jpg}
 \caption {Overall architecture of the proposed accelerator engine} \label{fig:overall_architecture} \end{center} \end{figure}
-
 Before the accelerator starts to operate, the host processor assembles a set of query and target sequence pairs and streams them to the on-board DDR3 memory via PCIe. 
 Then, each PE array's task distributor fetches a certain part of sequence pairs and distributes them to the idled PEs. 
 The resulting mappings are stored in the on-board memory and then sent back to the host.
-
 \subsection{Processing Element (PE) Design}
-
 A PE realizes the S-W code obtained from the software implementation in BWA-MEM. 
 We design our PE architecture using the high-level synthesis methodology. 
 Unlike wavefront-based solutions which looks completely different from the software approach,  
@@ -105,14 +101,11 @@ It enlarges the size of each PE by 20\%, but reduces computation effort by over 
 %%%Furthermore, since the extensions need to be performed in both ends of a seed,
 %%%we merge both the left and right extention capability into our PE design and reuse the same S-W kernel, 
 %%%as shown in Figure \ref{fig:pe_archi}.
-
 \subsection{Two-level Task Scheduling}
-
 \begin{figure}[!hbt]
 \begin{center}
-\includegraphics[width=2.4in]{Figures/Figure_Arch2.jpg}
+\includegraphics[width=2.5in]{Figures/Figure_Arch2.jpg}
 \caption {The design of a PE array} \label{fig:schedule_structure} \end{center} \end{figure}
-
 The first-level of task scheduling resides in a PE array. 
 A PE array includes three types of major components: (1) \textit{task distributor} (2) \textit{PE}, and (3) \textit{result collector}, 
 as shown in Figure \ref{fig:schedule_structure}.
@@ -136,12 +129,10 @@ However, when the number of PEs is increased to a certain point,
 the distributor becomes a performance bottleneck caused by its round-robin task scheduling manner.
 Therefore, we explore the second-level of task scheduling by replicating the nubmer of PE arrays, i.e. the number of \textit{task distributors}. 
 This two-level hierarchy provides us with a design methodology for obtaining scalable speedup with more PE arrays.
-
-
-%\subsection{High-level Synthesis Implementation}
-
-%All the above mentioned structures are described in C code and translated into RTL verilog code by the Vivado HLS tool. In addition, we take advantage of some special definitions and directives to guide the HLS tool to create the expected hardware architecture. For instance, the variable type of HLS stream is used to connect the three main parts with FIFOs (\ref{fig:pe_archi}). And the dataflow directive is utilized to make the parts run in parallel.
-
-%Derived from the benefit of high-level synthesis technique, the proposed architecture is easy to be adjusted for achieving scalability of acceleration, only by modifying a couple of parameters which define the number of duplication.
-
-
+%%%
+%%%
+%%%%\subsection{High-level Synthesis Implementation}
+%%%
+%%%%All the above mentioned structures are described in C code and translated into RTL verilog code by the Vivado HLS tool. In addition, we take advantage of some special definitions and directives to guide the HLS tool to create the expected hardware architecture. For instance, the variable type of HLS stream is used to connect the three main parts with FIFOs (\ref{fig:pe_archi}). And the dataflow directive is utilized to make the parts run in parallel.
+%%%
+%%%%Derived from the benefit of high-level synthesis technique, the proposed architecture is easy to be adjusted for achieving scalability of acceleration, only by modifying a couple of parameters which define the number of duplication.

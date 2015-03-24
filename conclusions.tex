@@ -1,9 +1,5 @@
 \section{Conclusions} 
 \label{sec:conclusions}
-In this paper, we design an architecture to efficiently accelerate S-W, the computation bottleneck in BWA-MEM, the state-of-the-art DNA sequence aligner.
-To map the enormous number of seeds generated from the reads, we design an array-based architecture equipped with a large number of simple processing units.
-Since the seeds have various sizes, the PE array architecture can utilize the computation resource efficiently compared to the conventional wavefront-based architecture.
-Also, our two-level hierarchical architecture can reduce the FPGA fabric utilization for synthesizing data prefetching logics and provide efficient PE allocation.
-Furthermore, our design can be integrated to BWA-MEM, which extends the conventional S-W algorithm with pruning techiniques. 
-Our FPGA implementation demonstrates about 26.4x speedup compared to a 24-thread Intel Xeon server. 
-We also show that our design outperforms wavefront-based implementations by up to 6x under the same FPGA resource.
+In this paper, we design an architecture to efficiently accelerate S-W, the computation bottleneck in BWA-MEM, the state-of-the-art read aligner. 
+Massive task-level parallelism, sharply varied input sizes and software pruning strategies are emphasized in our design. 
+Our FPGA implementation demonstrates about 26.4x speedup compared to a 24-thread Intel Xeon server, as well as up to 6x over wavefront-based implementations. 

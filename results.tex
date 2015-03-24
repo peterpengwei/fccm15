@@ -1,15 +1,12 @@
 \section{Experimental Results} 
 \label{sec:results}
 \subsection{Experimental Setup}
-
 Our design is described in HLS C and synthesized using Vivado HLS.
 The accelerator engine contains two PE arrays, each of which is composed of 50 PEs, and can run at 150MHz on the Xilinx VC707 FPGA evaluation board.
 The FPGA resource utilization is approximately 65\% (LUT: 65.4\%, Reg: 30.7\%, etc.). 
 We use an input with 100M of reads, which is a subset collected from a real individual human genome sample (about 500M reads, 120GB FASTQ file) with breast cancer (HCC1954). 
 We verify the outputs of our FPGA implementation with the seed extension step of BWA-MEM to ensure correctness. 
-
 \subsection{Speedup over Software-Based BWA-MEM}
-
 To demonstrate the speedup of our accelerator engine over the original BWA-MEM software, 
 an Intel Haswell Xeon server loaded with two 6-core CPUs is used.
 The server has 24 threads in total with hyperthreading support.
@@ -18,17 +15,14 @@ To make it a fair comparison, only the computation time of the S-W calls (after 
 
 Figure \ref{fig:F1C5} shows the performance comparison between our FPGA design and the original BWA-MEM software with results normalized to the single-threaded CPU performance.
 Our FPGA design outperforms the 24-thread CPU by 26.4 times.
-
 \begin{figure}[!hbt]
 	\begin{center}
-		\includegraphics[width=2.8in]{Figures/F1C5.jpg}
+		\includegraphics[width=2.5in]{Figures/F1C5.jpg}
 		\caption {Performance comparison between the FPGA design and the multi-threaded software BWA-MEM.}
 		\label{fig:F1C5}
 	\end{center}
 \end{figure}
-
 \subsection{Speedup Over Wavefront-Based Designs}
-
 To highlight the advantage of our design over wavefront-based solutions, 
 we compare the runtime of our accelerator engine to those of a set of wavefront-based FPGA implementations described in \cite{Zhang2007}, in which a circuit-level design is delivered. To have a fair comparison, we try to implement all designs with roughly the same FPGA resource utilization.
 
@@ -55,15 +49,13 @@ Since the trend of NGS will generate longer reads in the future, the performance
 \input TBL/resource_alloc
 
 %%%\subsection{The Effectiveness of Pruning}
-
 \begin{figure}[!hbt]
 	\begin{center}
-		\includegraphics[width=2.8in]{Figures/F2C5.jpg}
+		\includegraphics[width=2.5in]{Figures/F2C5.jpg}
 		\caption {Performance comparison between our design and a set of wavefront-based designs.}
 		\label{fig:F2C5}
 	\end{center}
 \end{figure}
-
 %%%\subsection{The Need for Two-Level Scheduling}
 %%%
 %%%%We find that the efficiency of the task distributor can potentially become the performance bottleneck 
