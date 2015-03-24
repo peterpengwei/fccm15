@@ -26,17 +26,10 @@ The S-W algorithm, a dynamic programming algorithm with quadratic time complexit
 It then becomes the main computation bottleneck in state-of-the-art tools like BWA-MEM \cite{BWA-MEM}, 
 compared to the BWT-based mapping with only linear time complexity. 
 In this work, we focus on accelerating the S-W algorithm in BWA-MEM. The methodology, however, can be applied to other contemporary aligners, such as Bowtie 2 and LAST. 
-%%%The hardware acceleration of the S-W algorithm has been studied in multi-core CPUs with SIMD vector engines, GPUs, and FPGAs. 
-%%%In \cite{Wozniak1997}\cite{Farrar2007}\cite{Rognes2011}, 
-%%%the authors redesigned the S-W algorithms based on the architecture of a multi-core CPU with SIMD vector engines for acceleration. 
-%%%The wavefront-based \cite{Wozniak1997} and column-based \cite{Farrar2007}\cite{Rognes2011} algorithms were proposed to map to the vector engines, respectively.
-%%%Several GPU implementations, such as the work in \cite{Manavski2008} and CUDASW++ 3.0 \cite{Liu2013}, demonstrated the speedups over SIMD CPU implementations \cite{Farrar2007}\cite{Rognes2011}.
-%%%The research in \cite{Preusser2012}\cite{RaceLogic}\cite{Zhang2007}\cite{Yu2005}\cite{Kim2011} exploited the anti-diagonal parallelism of S-W algorithm 
-%%%and implemented wavefront-based architectures on FPGA.
-%%%However, none of the proposed methods can be effectively integrated into BWA-MEM where the S-W algorithm is extended
-%%%to prune the solution space for better performance of long reads.
 
-Hardware acceleration for the S-W algorithm has been studied in various platforms. 
+The S-W algorithm is inherently anti-diagonal parallelizable, since the elements along each anti-diagonal in the S-W matrix are independent of each other, and each element only depends on three elements from the previous two anti-diagonals \cite{Edmiston1988}. 
+This feature has been explored in different ways on different platforms \cite{Preusser2012}\cite{RaceLogic}\cite{Zhang2007}\cite{Kim2011}\cite{Lam2013}. 
+It works fairly well when inputs are homogeneous. 
 However, the solutions targeting at the general S-W algorithm do not fit very well for the customized version used in BWA-MEM. 
 First, a huge number of reads at the billion scale need to be processed with high throughput. 
 Conventional approaches may result in an overemphasis on inner-task parallelism. 

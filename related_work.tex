@@ -1,41 +1,34 @@
 \section{Related Work} 
 \label{sec:related_work}
-As a fundamental operation in computational biology, aligning two sequences has attracted much attention \cite{Aluru2014}. 
-Two classic dynamic programming algorithms, Needleman-Wunsch \cite{Needleman1970} and Smith-Waterman \cite{Smith1981}, 
-are proposed for global and local alignments, respectively. 
-Although both of them are gap/mismatch-tolerant and optimal, 
-the quadratic time complexity prohibits them from some real applications such as DNA sequencing. 
-A pure S-W based aligner is currently used as a golden reference for accuracy evaluation of alignment algorithms \cite{Bowtie2}\cite{Knodel2011}.
-
-BWT-based software aligners, such as BWA \cite{BWA} and Bowtie \cite{Bowtie}, 
-are dominating in the genomics area and turning into the de facto standard. 
-BWT-based backward search is incredibly fast for exact matching, but exponential for mismatch/gap-tolerant matching. 
-Therefore, the state-of-the-art alignment algorithms usually combine both the backward searching and S-W algorithm 
-to perform the seeding step (exact mapping), and gap/mismatch-tolerant extension step (inexact mapping), respectively \cite{Heng2010}.
-
-Different seed-and-extend algorithms accentuate different steps. 
-Some algorithms, such as BFAST \cite{BFAST}, perform extension only when there is no exact match found for a read. 
-Since the majority of the reads are able to find at least one exact match, the computation bottleneck is the seeding step. 
-The other algorithms, such as BWA-MEM \cite{BWA-MEM}, do left/right extensions using customized S-W algorithms for almost all reads. 
-Some reads can generate a large number of seeds, like 8000, for seed extension. 
-Therefore, the extension step becomes the bottleneck.
-
-Hardware acceleration for read alignment have been studied on all major accelerator platforms \cite{Aluru2014}\cite{Fernandez2010}. 
-A few studies have been proposed for BWT-based aligners,
-such as BWA and BFAST \cite{Arram2013}\cite{Olson2012}\cite{Wayne2013}. 
-However, these studies \cite{Arram2013}\cite{Olson2012}\cite{Wayne2013} focus on accelerating the backward search step, 
-which is different from our focus on accelerating the customized S-W algorithms.
-
-For the acceleration of Smith-Waterman algorithm, 
-the anti-diagonal parallelism is explored and implemented in different ways on different platforms \cite{Wozniak1997}\cite{Preusser2012}\cite{RaceLogic}\cite{Zhang2007}\cite{Yu2005}\cite{Kim2011}\cite{Lam2013}. 
-The SIMD implementations in X86 processors take the column-based methodology for acceleration \cite{Farrar2007}\cite{Rognes2011}.
-The wavefront-based implementations work fairly well when the inputs are homogeneous. 
-%The pure Smith-Waterman aligner falls into this case, since all the reads share the same length of base-pairs. 
-%Some of the seed-and-extend algorithms will also fall into this category if they choose a fixed number as the length of each seed. 
-%This seed selection strategy usually yields identical length or just a few discrete lengths of inputs for seed extension. 
-Nevertheless, BWA-MEM \cite{BWA-MEM} uses SMEM \cite{Heng2012}, generating a set of variable-length matches as seeds.
-This makes the input sizes for seed extension vary significantly. 
-Simply reusing the well-developed wavefront-based technique in the previous work \cite{Wozniak1997}\cite{Preusser2012}\cite{RaceLogic}\cite{Zhang2007}\cite{Yu2005}\cite{Kim2011}\cite{Lam2013} 
-does not work efficiently, as discussed in this paper.
+%%%As a fundamental operation in computational biology, aligning two sequences has attracted much attention \cite{Aluru2014}. 
+%%%Two classic dynamic programming algorithms, Needleman-Wunsch \cite{Needleman1970} and Smith-Waterman \cite{Smith1981}, 
+%%%are proposed for global and local alignments, respectively. 
+%%%Although both of them are gap/mismatch-tolerant and optimal, 
+%%%the quadratic time complexity prohibits them from some real applications such as DNA sequencing. 
+%%%A pure S-W based aligner is currently used as a golden reference for accuracy evaluation of alignment algorithms \cite{Bowtie2}\cite{Knodel2011}.
+%%%
+%%%BWT-based software aligners, such as BWA \cite{BWA} and Bowtie \cite{Bowtie}, 
+%%%are dominating in the genomics area and turning into the de facto standard. 
+%%%BWT-based backward search is incredibly fast for exact matching, but exponential for mismatch/gap-tolerant matching. 
+%%%Therefore, the state-of-the-art alignment algorithms usually combine both the backward searching and S-W algorithm 
+%%%to perform the seeding step (exact mapping), and gap/mismatch-tolerant extension step (inexact mapping), respectively \cite{Heng2010}.
+%%%
+%%%Different seed-and-extend algorithms accentuate different steps. 
+%%%Some algorithms, such as BFAST \cite{BFAST}, perform extension only when there is no exact match found for a read. 
+%%%Since the majority of the reads are able to find at least one exact match, the computation bottleneck is the seeding step. 
+%%%The other algorithms, such as BWA-MEM \cite{BWA-MEM}, do left/right extensions using customized S-W algorithms for almost all reads. 
+%%%Some reads can generate a large number of seeds, like 8000, for seed extension. 
+%%%Therefore, the extension step becomes the bottleneck.
+%%%
+%%%Hardware acceleration for read alignment have been studied on all major accelerator platforms \cite{Aluru2014}\cite{Fernandez2010}. 
+%%%A few studies have been proposed for BWT-based aligners,
+%%%such as BWA and BFAST \cite{Arram2013}\cite{Olson2012}\cite{Wayne2013}. 
+%%%However, these studies \cite{Arram2013}\cite{Olson2012}\cite{Wayne2013} focus on accelerating the backward search step, 
+%%%which is different from our focus on accelerating the customized S-W algorithms.
+The anti-diagonal parallelism has been explored and implemented in different ways on different platforms for S-W acceleration \cite{Preusser2012}\cite{RaceLogic}\cite{Zhang2007}\cite{Kim2011}\cite{Lam2013}. 
+%%%The SIMD implementations in X86 processors take the column-based methodology for acceleration \cite{Farrar2007}\cite{Rognes2011}.
+It works fairly well when the inputs are homogeneous. 
+Nevertheless, contemporary read aligners such as BWA-MEM, Bowtie 2 and LAST, generate S-W inputs with highly varied sizes. 
+Simply reusing the well-developed wavefront-based technique in the previous work does not work efficiently, as discussed in this paper.
 
 Software-based pruning strategies have been realized in many software aligners, such as BLAST \cite{BLAST1990}, LAST \cite{LAST} and BWA-MEM \cite{BWA-MEM}, and are ignored in previous work. In this paper, we investigate on how to integrate the pruning strategies into the accelerator design.
