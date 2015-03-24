@@ -14,7 +14,7 @@ A read typically consists of hundreds of nucleotides or base pairs (bps), while 
 %%Mapping billions of sequenced fragments onto a genome sequence by taking advantage of the known human genome sequence 
 %%is called resequencing, and it entails tremendous computational challenges.
 
-State-of-the-art read aligners, such as BWA-MEM \cite{BWA-MEM} and Bowtie 2 \cite{Bowtie}\cite{Bowtie2}, 
+State-of-the-art read aligners, such as BWA-MEM \cite{BWA-MEM} and Bowtie 2 \cite{Bowtie2}, 
 carry out the read mapping with two steps. 
 First, each read is fragmented into small pieces called seeds, and mapped to the reference genome. 
 The mapping of seeds to the reference genome is required to be exact, i.e. no gap or mismatch is allowed. 
@@ -25,10 +25,10 @@ The extensions are deemed as inexact mappings, in which gaps and mismatches are 
 The S-W algorithm, a dynamic programming algorithm with quadratic time complexity, is the classic approach to address this problem. 
 It then becomes the main computation bottleneck in state-of-the-art tools like BWA-MEM \cite{BWA-MEM}, 
 compared to the BWT-based mapping with only linear time complexity. 
-In this work, we focus on accelerating the S-W algorithm in BWA-MEM. The methodology, however, can be applied to other contemporary aligners, such as Bowtie 2 and LAST. 
+In this work, we focus on accelerating the S-W algorithm in BWA-MEM. The methodology, however, can be applied to other contemporary aligners, such as Bowtie 2 \cite{Bowtie2} and LAST \cite{LAST}. 
 
 The S-W algorithm is inherently anti-diagonal parallelizable, since the elements along each anti-diagonal in the S-W matrix are independent of each other, and each element only depends on three elements from the previous two anti-diagonals \cite{Edmiston1988}. 
-This feature has been explored in different ways on different platforms \cite{Preusser2012}\cite{RaceLogic}\cite{Zhang2007}\cite{Kim2011}\cite{Lam2013}. 
+This feature, called wavefront, has been explored in different ways on different platforms \cite{Preusser2012}\cite{RaceLogic}\cite{Zhang2007}\cite{Kim2011}\cite{Lam2013}. 
 It works fairly well when inputs are homogeneous. 
 However, the solutions targeting at the general S-W algorithm do not fit very well for the customized version used in BWA-MEM. 
 First, a huge number of reads at the billion scale need to be processed with high throughput. 

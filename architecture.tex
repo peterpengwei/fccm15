@@ -4,10 +4,7 @@
 
 Our accelerator engine consists of multiple PE arrays connecting with the off-chip memory via AXI bus interface, as shown in Figure \ref{fig:overall_architecture}.
 Each PE acts as one kernel and can take one S-W task to maximize throughput.
-\begin{figure}[!hbt]
-\begin{center}
-\includegraphics[width=2.5in]{Figures/Figure_Arch1.jpg}
-\caption {Overall architecture of the proposed accelerator engine} \label{fig:overall_architecture} \end{center} \end{figure}
+
 Before the accelerator starts to operate, the host processor assembles a set of query and target sequence pairs and streams them to the on-board DDR3 memory via PCIe. 
 Then, each PE array's task distributor fetches a certain part of sequence pairs and distributes them to the idled PEs. 
 The resulting mappings are stored in the on-board memory and then sent back to the host.
@@ -101,17 +98,28 @@ It enlarges the size of each PE by 20\%, but reduces computation effort by over 
 %%%Furthermore, since the extensions need to be performed in both ends of a seed,
 %%%we merge both the left and right extention capability into our PE design and reuse the same S-W kernel, 
 %%%as shown in Figure \ref{fig:pe_archi}.
-\subsection{Two-level Task Scheduling}
+
 \begin{figure}[!hbt]
 \begin{center}
-\includegraphics[width=2.5in]{Figures/Figure_Arch2.jpg}
-\caption {The design of a PE array} \label{fig:schedule_structure} \end{center} \end{figure}
+\includegraphics[width=2.5in]{Figures/Figure_Arch1.jpg}
+\caption {Overall architecture of the proposed accelerator engine} \label{fig:overall_architecture} \end{center} \end{figure}
+\vspace{-10pt}
+
+\subsection{Two-level Task Scheduling}
+
 The first-level of task scheduling resides in a PE array. 
 A PE array includes three types of major components: (1) \textit{task distributor} (2) \textit{PE}, and (3) \textit{result collector}, 
 as shown in Figure \ref{fig:schedule_structure}.
 The \textit{task distributor} fetches data from the on-board DRAM to the on-chip BRAM and dynamically dispatches the tasks to each PE through a FIFO.
 %%%A PE array contains a number of PEs to read data from their own FIFOs and process the S-W tasks in parallel.
 The \textit{result collector} receives mapping results from each PE through a FIFO and packs them together for the host.
+
+\begin{figure}[!hbt]
+\begin{center}
+\includegraphics[width=2.5in]{Figures/Figure_Arch2.jpg}
+\caption {The design of a PE array} \label{fig:schedule_structure} \end{center} \end{figure}
+\vspace{-10pt}
+
 
 If a centralized \textit{task distributor} is not provided, each PE needs to fetch data from on-board memory independently. 
 This incurs a significant (25\%) area overhead per PE to synthesize its own AXI interface. 

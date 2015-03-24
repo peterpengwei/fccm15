@@ -50,6 +50,7 @@ The sizes range from one to 84, and none of them has more than 5\% of the 10M of
 This significant diversity of input sizes makes it prohibitive to choose one or a few kinds of PEs to avoid wasting of resources.
 The only choice is to have each kernel only one PE, which means the anti-diagonal parallelism gets totally ignored.
 %Assume that there is a kernel of 10 PEs to execute a 10x30 Smith-Waterman task. A 10x30 matrix has 39 anti-diagonal, each of which has at most 10 elements, so it takes 39 cycles for our 10-PE kernel to finish the task. However, the 10 PEs get fully utilized in only 21 cycles and the total PE utilization ratio is only 77\%, because of the filling and draining of the pipeline. The filling and draining inefficiency can be ignored if the input size is relatively large compared to the kernel size, e.g. a 10x10,000 task on a 10-PE kernel, but the inputs of BWA-MEM Smith-Waterman do not fall into this category. Figure \ref{fig:F4C2} provides a histogram of the lengths of the shorter strings (bounding the maximum degrees of parallelism) over 10 million randomly selected BWA-MEM Smith-Waterman tasks. The average length of the shorter strings is only 34 and approximately 25\% of the inputs has their shorter strings less than 10 in length. Configuring each kernel in a large size will surely lead to a low resource utilization rate in BWA-MEM.
+
 \begin{figure}[!hbt]
 	\begin{center}
 		\includegraphics[width=2.5in]{Figures/Figure4C2.jpg}
@@ -57,6 +58,8 @@ The only choice is to have each kernel only one PE, which means the anti-diagona
 		\label{fig:F4C2}
 	\end{center}
 \end{figure}
+\vspace{-10pt}
+
 %Another source of inadequate utilization comes from the irregular sizes of inputs. For a kernel of 10 PEs fed by a 13x37 Smith-Waterman task, the 13-element anti-diagonal has to consume 2 cycles, and the second cycle calculates only 3 elements, leaving 7 PEs unused and 65\% utilization rate in the two cycles. Admittedly, it has potential for the 10 PEs to calculate elements crossing anti-diagonals, but the control logic of each PE will consequently become much more complicated and take more area, which in turn decrease the number of PEs an accelerator platform can form. Based on our profiling over 10 million randomly selected tasks, the length of the shorter string ranges from 1 up to 84 consecutively, without any number showing up more than 5\%. Therefore, this kind of inefficient utilization is inevitable in BWA-MEM unless each kernel has only 1 PE.
 
 \vspace{1pt}
@@ -74,6 +77,7 @@ the potential speedup from pruning would have to be sacrificed due to its incomp
 It will be even worse when the sizes of seeds becomes longer, which is the future trend for NGS.
 %%%For Design 3 illustrated in Table \ref{tab:example}, it can be further accelerated by 2x with 50\% of computation pruned (1500 cycles). 
 %%%However, the wavefront-based architectures, like Design 1 and 2, cannot leverage the benefits of pruning.
+
 \begin{figure}[!hbt]
 	\begin{center}
 		\includegraphics[width=2.5in]{Figures/Figure2C2.jpg}
@@ -81,6 +85,8 @@ It will be even worse when the sizes of seeds becomes longer, which is the futur
 		\label{fig:F2C2}
 	\end{center}
 \end{figure}
+\vspace{-10pt}
+
 %%%%\subsection{Simple is Best: A Motivational Example} 
 %%%%\label{subsec:motivation}
 %%%
