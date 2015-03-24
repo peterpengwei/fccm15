@@ -127,7 +127,7 @@ The \textit{result collector} keeps monitoring the output FIFO of each PE and ob
 If the number of PEs is small, the first-level of task scheduling is capable enough. 
 However, when the number of PEs is increased to a certain point, 
 the distributor becomes a performance bottleneck caused by its round-robin task scheduling manner.
-Therefore, we explore the second-level of task scheduling by replicating the nubmer of PE arrays, i.e. the number of \textit{task distributors}. 
+Therefore, we explore the second-level of task scheduling by replicating the number of PE arrays, i.e. the number of \textit{task distributors}. 
 This two-level hierarchy provides us with a design methodology for obtaining scalable speedup with more PE arrays.
 %%%
 %%%
