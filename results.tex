@@ -3,18 +3,18 @@
 
 \subsection{Experimental Setup}
 
-Our design is described in HLS C and synthesized using Vivado HLS.
-The accelerator engine contains two PE arrays, each of which is composed of 50 PEs, and can run at 150MHz on the Xilinx VC707 FPGA evaluation board.
+Our design is described in HLS C and synthesized using the Vivado HLS.
+The accelerator engine contains two PE arrays, each composed of 50 PEs, and can run at 150MHz on the Xilinx VC707 FPGA evaluation board.
 The FPGA resource utilization is approximately 65\% (LUT: 65.4\%, Reg: 30.7\%, etc.). 
-We use an input with 100M of reads, which is a subset collected from a real individual human genome sample (about 500M reads, 120GB FASTQ file) with breast cancer (HCC1954). 
+We use an input with 100M reads, which is a subset collected from a real individual human genome sample (about 500M reads, 120GB FASTQ file) with breast cancer (HCC1954). 
 We verify the outputs of our FPGA implementation with the seed extension step of BWA-MEM to ensure correctness. 
 
-\subsection{Speedup over Software-Based BWA-MEM}
+\subsection{Speedup Over Software-Based BWA-MEM}
 
 To demonstrate the speedup of our accelerator engine over the original BWA-MEM software, 
 an Intel Haswell Xeon server loaded with two 6-core CPUs is used.
-The server has 24 threads in total with hyperthreading support.
-We compare the execution time of our FPGA implementation with pure software customized S-W runtimes with 1, 2, 4, 8, 16 and 24 threads, respectively.
+The server has 24 threads in total, with hyperthreading support.
+We compare the execution time of our FPGA implementation with pure software-customized S-W runtimes with 1, 2, 4, 8, 16 and 24 threads, respectively.
 To make it a fair comparison, only the computation time of the S-W calls (after loading inputs from memory and before storing outputs to memory) is collected for both FPGA and CPU implementations.
 
 Figure \ref{fig:F1C5} shows the performance comparison between our FPGA design and the software BWA-MEM S-W kernel with results normalized to the single-threaded CPU performance.
@@ -23,12 +23,12 @@ Our FPGA design outperforms the 24-thread CPU by 26.4 times.
 \subsection{Speedup Over Wavefront-Based Designs}
 
 To highlight the advantage of our design over wavefront-based solutions, 
-we compare the runtime of our accelerator engine to those of a set of wavefront-based FPGA implementations described in \cite{Zhang2007}, in which a circuit-level design is delivered. To have a fair comparison, we try to implement all designs with roughly the same FPGA resource utilization.
+we compare the runtime of our accelerator engine to those of a set of wavefront-based FPGA implementations described in \cite{Zhang2007}, in which a circuit-level design is delivered. To arrive at a fair comparison, we try to implement all designs with roughly the same FPGA resource utilization.
 
 Table \ref{tab:configuration} shows the wavefront-based designs we created for comparison. 
-A design containing $n$ kernels with $m$ PE per kenel is denoted by $m$Px$n$K. 
+A design containing $n$ kernels with $m$ PE per kernel is denoted by $m$Px$n$K. 
 We use a 32Px5K configuration, which is the slowest among all FPGA designs, as the base unit for comparison.
-We find that the performance of the wavefront-based designs generally decreases when the number of PE per kernel ($m$) increases.
+We find that the performance of the wavefront-based designs generally decreases when the number of PEs per kernel ($m$) increases.
 although the performance does not decrease fully monotonically, as shown in Figure \ref{fig:F2C5}.
 In general, this shows that the wavefront-based designs have worse PE utilization rates compared to our design. 
 
@@ -45,11 +45,11 @@ In general, this shows that the wavefront-based designs have worse PE utilizatio
 \input TBL/resource_alloc
 
 Furthermore, Figure \ref{fig:F2C5} also demonstrates the power of pruning. 
-When the wavefront design comes to one extreme with only one PE per kernel (1Px116K), 
+When the wavefront design goes to the extreme where a kernel is restricted to have only one PE (1Px116K), 
 the only difference between our design and the 1Px116K design is whether the pruning logics are realized. 
 Compared to the 1Px116K design, our design shows about 2x speedup.
 %%% even though the number of PEs in our design is only 100, which is 16 PEs fewer than that of 1Px116K. 
-Our current design uses the reads with length of 101bp.
+Our current design uses reads with a length of 101bp.
 Since the trend of NGS will generate longer reads in the future, the performance improvement lead by pruning is expected to be much more significant.
 %%%
 %%%We need to mention that resources can be saved when more PEs are integrated into one kernel for the wavefront-based designs.

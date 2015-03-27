@@ -368,7 +368,7 @@
 \IEEEauthorblockA{Computer Science Department\\
 University of California, Los Angeles\\
 Los Angeles, CA, 90095, USA\\
-{ytchen, cong, peng.wei.prc}@cs.ucla.edu}
+\{ytchen, cong, peng.wei.prc\}@cs.ucla.edu}
 \and
 \IEEEauthorblockN{Jie Lei}
 \IEEEauthorblockA{State Key Laboratory of Integrated Services Networks\\
@@ -413,12 +413,12 @@ jielei@mail.xidian.edu.cn}
 
 
 \begin{abstract}
-The Smith-Waterman (S-W) algorithm is widely adopted by the state-of-the-art DNA sequece aligners.
-Existing wavefront-based works for accelerating S-W ignored the fact that S-W is called with significantly varied input sizes and extensive pruning in modern aligners. 
+The Smith-Waterman (S-W) algorithm is widely adopted by the state-of-the-art DNA sequence aligners.
+Existing wavefront-based methods ignored the fact that the S-W kernel is fed with significantly varied-size inputs in modern aligners, in which the S-W kernel is also optimized by exerting extensive pruning. 
 In this paper, we propose an architecture, 
 tailored for varied input sizes as well as harnessing software pruning strategies, 
 to accelerate S-W. 
-Our implementation demonstrates 26.4x speedup over a 24-thread Intel Haswell Xeon server, 
+Our implementation demonstrates a 26.4x speedup over a 24-thread Intel Haswell Xeon server, 
 and outperforms wavefront-based implementations up to 6x with the same FPGA resource.
 %%%
 %%%Next-generation sequencing is one of the most burgeoning technologies for biological research and clinical applications.
@@ -437,7 +437,7 @@ and outperforms wavefront-based implementations up to 6x with the same FPGA reso
 \end{abstract}
 
 \begin{IEEEkeywords}
-read alignment; Smith-Waterman; FPGA; HLS; multi-level scheduling
+read alignment; Smith-Waterman; FPGA; HLS; multilevel scheduling
 \end{IEEEkeywords}
 % For peer review papers, you can put extra information on the cover
 % page as needed:
@@ -566,8 +566,10 @@ read alignment; Smith-Waterman; FPGA; HLS; multi-level scheduling
 %%%% conference papers do not normally have an appendix
 % use section* for acknowledgement
 \section*{Acknowledgment}
-This work is supported by both the Center for Domain-Specific Computing (CDSC) under the NSF Expeditions in Computing Award CCF-0926127, 
-and by National Science Foundation of China (No.61301287).
+This work is partially supported by the Intel Corporation (No. 20134321) with the matching fund from the NSF under the Innovation Transition (InTrans) Program (CCF-1436827), 
+and by National Science Foundation of China (No. 61301287).
+%%%This work is supported by both the Center for Domain-Specific Computing (CDSC) under the NSF Expeditions in Computing Award CCF-0926127, 
+%%%and by National Science Foundation of China (No.61301287).
 %%%The authors would like to thank...
 %%%more thanks here
 % trigger a \newpage just before the given reference

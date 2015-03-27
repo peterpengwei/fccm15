@@ -1,9 +1,9 @@
 \section{Introduction} 
 \label{sec:introduction}
 
-Next-generation sequencing (NGS) technologies have attracted a large amount of attentions from both researchers and clinicians. 
+Next-generation sequencing (NGS) technologies have attracted a large amount of attention from both researchers and clinicians. 
 Human DNA samples are chopped into billions of small fragments, called reads, and a sequencer determines the order of each read's nucleotides. 
-A software aligner then maps all the billions of sequenced reads onto a reference human genome, entailing tremendous computational challenges.
+A software aligner then maps the billions of sequenced reads onto a reference human genome, which entails tremendous computational challenges.
 %%%The size of a DNA sequence is often measured in base pairs (bps). 
 A read typically consists of hundreds of nucleotides or base pairs (bps), while the reference genome contains 3.2 billion bps \cite{Mardis2008}.
 %%The advent of next-generation sequencing (NGS) technologies dramatically reduces the cost of genome sequencing. 
@@ -15,32 +15,32 @@ A read typically consists of hundreds of nucleotides or base pairs (bps), while 
 %%is called resequencing, and it entails tremendous computational challenges.
 
 State-of-the-art read aligners, such as BWA-MEM \cite{BWA-MEM} and Bowtie 2 \cite{Bowtie2}, 
-carry out the read mapping with two steps. 
+carry out the read mapping in two steps. 
 First, each read is fragmented into small pieces called seeds, and mapped to the reference genome. 
-The mapping of seeds to the reference genome is required to be exact, i.e. no gap or mismatch is allowed. 
-A backward search algorithm based on the Burrows-Wheeler Transform (BWT) \cite{BWT} takes only O($m$) time for a seed of length $m$ mapping to the super-long reference genome, independent of the size of the reference genome, and therefore employed by almost all contemporary sequence aligners.
+The mapping of seeds to the reference genome must be exact, i.e., no gap or mismatch is allowed. 
+A backward search algorithm based on the Burrows-Wheeler Transform (BWT) \cite{BWT} takes only O($m$) time for a seed of length $m$ to map to the super-long reference genome, independent of the size of the reference genome, and therefore is employed by almost all contemporary sequence aligners.
 
-In the second step, each seed map gets extended leftward and rightward till the entire read. 
-The extensions are deemed as inexact mappings, in which gaps and mismatches are allowed. A pre-defined scoring function is provided for evaluating the effectiveness of inexact mappings. Only the ones achieving high enough scores are recorded in the output. 
+In the second step, each seed map gets extended leftward and rightward for the entire read. 
+The extensions are deemed inexact mappings, in which gaps and mismatches are allowed. A predefined scoring function is provided for evaluating the effectiveness of inexact mappings. Only the ones achieving high enough scores are recorded in the output. 
 The S-W algorithm, a dynamic programming algorithm with quadratic time complexity, is the classic approach to address this problem. 
 It then becomes the main computation bottleneck in state-of-the-art tools like BWA-MEM \cite{BWA-MEM}, 
 compared to the BWT-based mapping with only linear time complexity. 
-In this work, we focus on accelerating the S-W algorithm in BWA-MEM. The methodology, however, can be applied to other contemporary aligners, such as Bowtie 2 \cite{Bowtie2} and LAST \cite{LAST}. 
+In this work we focus on accelerating the S-W algorithm in BWA-MEM. The methodology, however, can be applied to other contemporary aligners, such as Bowtie 2 \cite{Bowtie2} and LAST \cite{LAST}. 
 
 The S-W algorithm is inherently anti-diagonal parallelizable, since the elements along each anti-diagonal in the S-W matrix are independent of each other, and each element only depends on three elements from the previous two anti-diagonals \cite{Edmiston1988}. 
 This feature, called wavefront, has been explored in different ways on different platforms \cite{Preusser2012}\cite{RaceLogic}\cite{Zhang2007}\cite{Kim2011}\cite{Lam2013}. 
 It works fairly well when inputs are homogeneous. 
-However, the solutions targeting at the general S-W algorithm do not fit very well for the customized version used in BWA-MEM. 
+However, the solutions that target the general S-W algorithm do not fit very well for the customized version used in BWA-MEM. 
 First, a huge number of reads at the billion scale need to be processed with high throughput. 
 Conventional approaches may result in an overemphasis on inner-task parallelism. 
 Second, conventional wavefront-based architectures cannot utilize computational resources efficiently when the input sizes vary sharply, which is the very case in BWA-MEM. 
 Third, the pruning heuristic used in BWA-MEM prevents conventional solutions from being adopted directly and efficiently.
 
 In this paper, we propose an architecture to address these issues.
-Our architecture novelties can be summarized as follows. 
-(1) We propose an array-based architecture for processing the enormous number of reads in a high-throughput fashion as well as adapting to inputs with widely varied sizes better. 
+The novelties of our architecture can be summarized as follows: 
+(1) We propose an array-based architecture for processing the enormous number of reads in a high-throughput fashion, as well as adapting better to inputs with widely varied sizes. 
 (2) We provide a two-level hierarchical architecture for resource management, saving FPGA fabrics while satisfying the off-chip bandwidth demand.
 (3) Our design supports the pruning technique, reducing the solution space of S-W significantly. 
 
-Our FPGA implementation demonstrates a 26.4x speedup compared to a 24-thread Intel Haswell Xeon server for S-W in BWA-MEM. 
+Our FPGA implementation demonstrates a 26.4x speedup compared to a 24-thread Intel Haswell Xeon server for the S-W kernel in BWA-MEM. 
 We also show that our design outperforms wavefront-based implementations by up to 6x with the same FPGA resource utilization.

@@ -4,7 +4,7 @@
 %Nevertheless, tools such as BLAST \cite{BLAST1990} and BWA-MEM \cite{BWA-MEM} use the customized versions of the S-W algorithms.
 %In BWA-MEM, we have three important observations that prevent us from using conventional wavefront technique for hardware acceleration.
 Our acceleration engine design is based on the following three important observations 
-discovered from the analysis of the S-W implementation in BWA-MEM.
+derived from an analysis of the S-W implementation in BWA-MEM.
 %%%From the observations, we find that the wavefront-based architectures are inefficient to be applied in BWA-MEM.
 %%%
 %%%For simplicity without losing generality, 
@@ -19,11 +19,11 @@ discovered from the analysis of the S-W implementation in BWA-MEM.
 \vspace{1pt}
 
 A sequencer can generate billions of reads from a single individual for analysis in today's NGS flow.
-The huge amount of data generates enormous task-level parallelism, making us reexamine the conventional wavefront technique for S-W acceleration.
-The conventional wavefront technique exploits the inner-task anti-diagonal parallelism to maxmize the speedup for a single task.
+The huge amount of data generates enormous task-level parallelism, prompting us reexamine the conventional wavefront technique for S-W acceleration.
+The conventional wavefront technique exploits the inner-task anti-diagonal parallelism to maximize the speedup for a single task.
 However, the wavefront implementation is not optimal when the task-level parallelism is several orders of magnitude larger than the inner-task parallelism.
 This is because the resources for implementing accelerators is limited.
-We have to decide if the resource should be used for exploiting task-level parallelism or inner-task parallelism.
+We must decide if the resource should be used for exploiting task-level parallelism or inner-task parallelism.
 This influences the dynamic PE utilization rate, i.e. the throughput, and thus has a strong impact on performance.
 
 %%%The three designs listed in Table \ref{tab:example} are used to demonstrate the performance impact on low PE utilization.
@@ -41,14 +41,14 @@ This influences the dynamic PE utilization rate, i.e. the throughput, and thus h
 \textbf{Observation 2: Significantly Varied-Size Inputs}
 \vspace{1pt}
 
-The sharply varied input sizes of S-W in BWA-MEM results in a considerable waste of resources, i.e. low PE utilization, in wavefront-based designs. 
-For example, a kernel of 10 PEs, fits perfectly for a 10x100 S-W task, but is only able to reach at most a 65\% resource utilization for a 13x103 input. 
+The sharply varied input sizes of S-W in BWA-MEM result in a considerable waste of resources, i.e., low PE utilization, in wavefront-based designs. 
+For example, a kernel of 10 PEs fits perfectly for a 10x100 S-W task, but is only able to reach at most a 65\% resource utilization for a 13x103 input. 
 This is because the length of the maximal anti-diagonals of the 13x103 input is 13, 
 which is not divisible by the number of PEs in the kernel.
 Figure \ref{fig:F4C2} provides a histogram of the sizes of the shorter strings (bounding the maximum degrees of parallelism) over 10M inputs of randomly selected BWA-MEM S-W tasks. 
-The sizes range from one to 84, and none of them has more than 5\% of the 10M of inputs. 
-This significant diversity of input sizes makes it prohibitive to choose one or a few kinds of PEs to avoid wasting of resources.
-The only choice is to have each kernel only one PE, which means the anti-diagonal parallelism gets totally ignored.
+The sizes range from one to 84, and none of them has more than 5\% of the 10M inputs. 
+This significant diversity of input sizes makes it prohibitive to choose one or a few kinds of PEs to avoid wasting resources.
+The only choice is to have each kernel restricted to only one PE, which means the anti-diagonal parallelism gets totally ignored.
 %Assume that there is a kernel of 10 PEs to execute a 10x30 Smith-Waterman task. A 10x30 matrix has 39 anti-diagonal, each of which has at most 10 elements, so it takes 39 cycles for our 10-PE kernel to finish the task. However, the 10 PEs get fully utilized in only 21 cycles and the total PE utilization ratio is only 77\%, because of the filling and draining of the pipeline. The filling and draining inefficiency can be ignored if the input size is relatively large compared to the kernel size, e.g. a 10x10,000 task on a 10-PE kernel, but the inputs of BWA-MEM Smith-Waterman do not fall into this category. Figure \ref{fig:F4C2} provides a histogram of the lengths of the shorter strings (bounding the maximum degrees of parallelism) over 10 million randomly selected BWA-MEM Smith-Waterman tasks. The average length of the shorter strings is only 34 and approximately 25\% of the inputs has their shorter strings less than 10 in length. Configuring each kernel in a large size will surely lead to a low resource utilization rate in BWA-MEM.
 
 \begin{figure}[!hbt]
@@ -71,10 +71,10 @@ BWA-MEM's pruning strategy is able to save over 50\% in computation efforts for 
 %%%BWA-MEM's pruning strategy is able to save over 50\% in computation efforts for S-W tasks, as discussed in Section \ref{subsec:Smith-Waterman}. 
 However, the pruning strategy destroys the basis of the anti-diagonal parallelism, as described in detail in \cite{BWA-MEM}. 
 Moreover, the results generated by the customized S-W in BWA-MEM will be slightly different from those obtained by the standard S-W. 
-This increases the difficulty of integrating existing wavefront-based works into BWA-MEM for verification concern. 
+This increases the difficulty of integrating existing wavefront-based work into BWA-MEM for verification concerns. 
 Even if the difficulty of integration can be overcome, 
-the potential speedup from pruning would have to be sacrificed due to its incompatibility against the wavefront technique.
-It will be even worse when the sizes of seeds becomes longer, which is the future trend for NGS.
+the potential speedup from pruning would have to be sacrificed due to its incompatibility with the wavefront technique.
+It will be even worse when the sizes of seeds become longer, which is the future trend for NGS.
 %%%For Design 3 illustrated in Table \ref{tab:example}, it can be further accelerated by 2x with 50\% of computation pruned (1500 cycles). 
 %%%However, the wavefront-based architectures, like Design 1 and 2, cannot leverage the benefits of pruning.
 
