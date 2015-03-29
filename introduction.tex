@@ -20,27 +20,26 @@ First, each read is fragmented into small pieces called seeds, and mapped to the
 The mapping of seeds to the reference genome must be exact, i.e., no gap or mismatch is allowed. 
 A backward search algorithm based on the Burrows-Wheeler Transform (BWT) \cite{BWT} takes only O($m$) time for a seed of length $m$ to map to the super-long reference genome, independent of the size of the reference genome, and therefore is employed by almost all contemporary sequence aligners.
 
-In the second step, each seed map gets extended leftward and rightward for the entire read. 
-The extensions are deemed inexact mappings, in which gaps and mismatches are allowed. A predefined scoring function is provided for evaluating the effectiveness of inexact mappings. Only the ones achieving high enough scores are recorded in the output. 
-The S-W algorithm, a dynamic programming algorithm with quadratic time complexity, is the classic approach to address this problem. 
-It then becomes the main computation bottleneck in state-of-the-art tools like BWA-MEM \cite{BWA-MEM}, 
-compared to the BWT-based mapping with only linear time complexity. 
+In the second step, each seed map gets extended leftward and rightward to span the entire read. 
+The extensions allow inexact mappings, in which gaps and mismatches are allowed. A predefined scoring function is provided for evaluating the effectiveness of inexact mappings. Only the ones achieving high enough scores are recorded in the output. 
+The Smith-Waterman (S-W) algorithm, a dynamic programming (DP) algorithm with quadratic time complexity, is a commonly used approach to address this problem. 
+It is the main computation bottleneck in state-of-the-art tools like BWA-MEM \cite{BWA-MEM} (taking 30\%~50\% computation time). 
 In this work we focus on accelerating the S-W algorithm in BWA-MEM. The methodology, however, can be applied to other contemporary aligners, such as Bowtie 2 \cite{Bowtie2} and LAST \cite{LAST}. 
 
-The S-W algorithm is inherently anti-diagonal parallelizable, since the elements along each anti-diagonal in the S-W matrix are independent of each other, and each element only depends on three elements from the previous two anti-diagonals \cite{Edmiston1988}. 
-This feature, called wavefront, has been explored in different ways on different platforms \cite{Preusser2012}\cite{RaceLogic}\cite{Zhang2007}\cite{Kim2011}\cite{Lam2013}. 
+The S-W algorithm is inherently anti-diagonal parallelizable, since the elements along the anti-diagonal direction in the 2D table used during the DP procedure are independent of each other \cite{Edmiston1988}. 
+This feature, called wavefront, has been explored in different ways on different platforms \cite{Preusser2012}\cite{RaceLogic}\cite{Zhang2007}\cite{Lam2013}. 
 It works fairly well when inputs are homogeneous. 
-However, the solutions that target the general S-W algorithm do not fit very well for the customized version used in BWA-MEM. 
+However, the solutions that target the general S-W algorithm do not fit very well for the optimized version used in BWA-MEM. 
 First, a huge number of reads at the billion scale need to be processed with high throughput. 
 Conventional approaches may result in an overemphasis on inner-task parallelism. 
-Second, conventional wavefront-based architectures cannot utilize computational resources efficiently when the input sizes vary sharply, which is the very case in BWA-MEM. 
+Second, conventional wavefront-based architectures cannot utilize computational resources efficiently when the input sizes vary sharply, as in BWA-MEM. 
 Third, the pruning heuristic used in BWA-MEM prevents conventional solutions from being adopted directly and efficiently.
 
 In this paper, we propose an architecture to address these issues.
 The novelties of our architecture can be summarized as follows: 
-(1) We propose an array-based architecture for processing the enormous number of reads in a high-throughput fashion, as well as adapting better to inputs with widely varied sizes. 
-(2) We provide a two-level hierarchical architecture for resource management, saving FPGA fabrics while satisfying the off-chip bandwidth demand.
-(3) Our design supports the pruning technique, reducing the solution space of S-W significantly. 
+(1) We propose an array-based architecture for processing the enormous number of reads in a high-throughput fashion, adapting better to inputs with widely varied sizes. 
+(2) We provide a two-level hierarchical architecture for resource management, avoiding wasting resources in synthesizing bus interfaces while satisfying the off-chip bandwidth demand.
+(3) Our design supports the pruning technique, shortening the runtime of S-W significantly. 
 
 Our FPGA implementation demonstrates a 26.4x speedup compared to a 24-thread Intel Haswell Xeon server for the S-W kernel in BWA-MEM. 
 We also show that our design outperforms wavefront-based implementations by up to 6x with the same FPGA resource utilization.

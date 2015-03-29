@@ -90,7 +90,7 @@ Those fields that are not to be changed can be left out.
 	journal = {Nature Method},
   doi = {10.1038/nmeth.1923},
 	pages = {357-359},
-	title = {Fast gapped-read alignment with Bowtie 2},
+	title = {Fast gapped-read alignment with {Bowtie} 2},
 	volume = 9,
 	year = 2012
 }
@@ -121,7 +121,7 @@ Those fields that are not to be changed can be left out.
 @INPROCEEDINGS{Preusser2012, 
 	author={Preusser, T.B. and Knodel, O. and Spallek, R.G.}, 
 	booktitle={FCCM}, 
-	title={Short-Read Mapping by a Systolic Custom FPGA Computation}, 
+	title={Short-Read Mapping by a Systolic Custom {FPGA} Computation}, 
 	year={2012}, 
 	pages={169-176}, 
 	abstract={The mapping of reads, i.e. short DNA base pair strings, to large genome databases has become a critical operation for genetic analysis and diagnosis. Although this mapping operation is a simple string search tolerant of some character mismatches, it is yet extremely challenging due to the tremendous size of the searched genome databases. It is the heavy use of search heuristics such as BLAST, Maq and Bowtie, which makes the economic deployment of read mappers possible. While these heuristics achieve feasible computation times, they also sacrifice the accuracy of the mapping results, which is itself a high value for reliable diagnostics. The traditional software implementations are unable to exploit the tremendous parallelism, which is available in the mapping of thousands and millions of reads. Merely a handful of concurrent control flows, and thus searches, can be performed efficiently on contemporary multicores. Even GPU assistance only enables a few dozens of parallel searches. This paper proposes a systolic custom computation on FPGA, which implements the read mapping on a massively parallel architecture. It implements a true search and guarantees to find all read mappings under a configurable threshold of base pair mismatches. The highly regular design from compact string matchers enables the implementation of thousands of parallel search engines on a single FPGA device. The presented map per platform combines highest computational performance with an excellent result accuracy. Its performance is more than twice as high as that of a recently published comparable FPGA map per. Already when implemented on a contemporary mid-size FPGA, it meets the search speed of software heuristics, which only detect little more than half of the valid read mappings. The map per easily scales to large FPGA devices, which can, thus, implement accurate high-performance volume mappers. Accurate mapping is made available in application domains that could only afford fuzzy heuristics- by now.}, 
@@ -200,7 +200,7 @@ Those fields that are not to be changed can be left out.
 @article{Edmiston1988,
 	year={1988},
 	issn={0885-7458},
-	journal={International Journal of Parallel Programming},
+	journal={IJPP},
 	volume={17},
 	number={3},
 	doi={10.1007/BF02427852},
@@ -452,8 +452,8 @@ Abstract = {Mapping the vast quantities of short sequence fragments produced by 
 
 @inproceedings{Zhang2007,
 	 author = {Zhang, Peiheng and Tan, Guangming and Gao, Guang R.},
-	  title = {Implementation of the Smith-Waterman Algorithm on a Reconfigurable Supercomputing Platform},
-	   booktitle = {Proceedings of the 1st International Workshop on High-performance Reconfigurable Computing Technology and Applications: Held in Conjunction with SC07},
+	  title = {Implementation of the {Smith-Waterman} Algorithm on a Reconfigurable Supercomputing Platform},
+	   booktitle = {HPRCTA},
 	     year = {2007},
 	      isbn = {978-1-59593-894-7},
 	       location = {Reno, Nevada},
@@ -465,7 +465,7 @@ Abstract = {Mapping the vast quantities of short sequence fragments produced by 
 } 
 
 @article{Kim2011,
-	  title={Accelerating Next Generation Genome Reassembly: Alignment Using Dynamic Programming Algorithms in FPGAs},
+	  title={Accelerating next generation genome reassembly: Alignment using dynamic programming algorithms in {FPGAs}},
 	    author={Kim, Maria},
 	      journal={University of Washington, Dept. of EE, MS Thesis},
 	        year={2011}
@@ -521,7 +521,7 @@ Abstract = {Mapping the vast quantities of short sequence fragments produced by 
 }
 
 @inproceedings{Lam2013,
-	  title={BSW: FPGA-accelerated BLAST-Wrapped Smith-Waterman aligner.},
+	  title={{BSW: FPGA-accelerated BLAST-wrapped Smith-Waterman aligner}.},
 	    author={Lam, Bryant C and Pascoe, Carlo and Schaecher, Scott and Lam, Herman and George, Alan D},
 	      booktitle={ReConFig},
 	        pages={1--7},
@@ -557,4 +557,15 @@ ABSTRACT = {A new generation of DNA-sequencing platforms will become commerciall
 		     publisher = {ACM},
 		      address = {New York, NY, USA},
 		       keywords = {ASIP, binate covering, compilation, configurable processor, technology mapping},
+}
+
+@article{HLS2011,
+	  title={High-level synthesis for {FPGAs}: From prototyping to deployment},
+	    author={Cong, Jason and Liu, Bin and Neuendorffer, Stephen and Noguera, Juanjo and Vissers, Kees and Zhang, Zhiru},
+	      journal={TCAD},
+	        volume={30},
+		  number={4},
+		    pages={473--491},
+		      year={2011},
+		        publisher={IEEE}
 }

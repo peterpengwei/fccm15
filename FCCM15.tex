@@ -363,20 +363,20 @@
 % author names and affiliations
 % use a multiple column layout for up to two different
 % affiliations
-
-\author{\IEEEauthorblockN{Yu-Ting Chen, Jason Cong, Peng Wei}
-\IEEEauthorblockA{Computer Science Department\\
-University of California, Los Angeles\\
-Los Angeles, CA, 90095, USA\\
-\{ytchen, cong, peng.wei.prc\}@cs.ucla.edu}
-\and
-\IEEEauthorblockN{Jie Lei}
-\IEEEauthorblockA{State Key Laboratory of Integrated Services Networks\\
-Xidian University\\
-Xian, China\\
-jielei@mail.xidian.edu.cn}
-}
-
+%%%
+%%%\author{\IEEEauthorblockN{Yu-Ting Chen, Jason Cong, Peng Wei}
+%%%\IEEEauthorblockA{Computer Science Department\\
+%%%University of California, Los Angeles\\
+%%%Los Angeles, CA, 90095, USA\\
+%%%\{ytchen, cong, peng.wei.prc\}@cs.ucla.edu}
+%%%\and
+%%%\IEEEauthorblockN{Jie Lei}
+%%%\IEEEauthorblockA{State Key Laboratory of Integrated Services Networks\\
+%%%Xidian University\\
+%%%Xian, China\\
+%%%jielei@mail.xidian.edu.cn}
+%%%}
+%%%
 % conference papers do not typically use \thanks and this command
 % is locked out in conference mode. If really needed, such as for
 % the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
@@ -385,22 +385,14 @@ jielei@mail.xidian.edu.cn}
 % for over three affiliations, or if they all won't fit within the width
 % of the page, use this alternative format:
 % 
-%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
-%Homer Simpson\IEEEauthorrefmark{2},
-%James Kirk\IEEEauthorrefmark{3}, 
-%Montgomery Scott\IEEEauthorrefmark{3} and
-%Eldon Tyrell\IEEEauthorrefmark{4}}
-%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
-%Georgia Institute of Technology,
-%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
-%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
-%Email: homer@thesimpsons.com}
-%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
-%Telephone: (800) 555--1212, Fax: (888) 555--1212}
-%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
-
-
-
+\author{\IEEEauthorblockN{Yu-Ting Chen\IEEEauthorrefmark{1},
+Jason Cong\IEEEauthorrefmark{1},
+Jie Lei\IEEEauthorrefmark{1}\IEEEauthorrefmark{2} and
+Peng Wei\IEEEauthorrefmark{1}}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}Computer Science Department, University of California, Los Angeles, USA\\
+\{ytchen, cong, jielei, peng.wei.prc\}@cs.ucla.edu}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}State Key Laboratory of Integrated Services Networks, Xidian University, China\\
+jielei@mail.xidian.edu.cn}}
 
 % use for special paper notices
 %\IEEEspecialpapernotice{(Invited Paper)}
@@ -414,12 +406,12 @@ jielei@mail.xidian.edu.cn}
 
 \begin{abstract}
 The Smith-Waterman (S-W) algorithm is widely adopted by the state-of-the-art DNA sequence aligners.
-Existing wavefront-based methods ignored the fact that the S-W kernel is fed with significantly varied-size inputs in modern aligners, in which the S-W kernel is also optimized by exerting extensive pruning. 
+Existing wavefront-based methods ignored the fact that the S-W kernel is fed with significantly varied-size inputs in modern aligners, in which the S-W kernel is further optimized by exerting extensive pruning. 
 In this paper, we propose an architecture, 
 tailored for varied input sizes as well as harnessing software pruning strategies, 
 to accelerate S-W. 
 Our implementation demonstrates a 26.4x speedup over a 24-thread Intel Haswell Xeon server, 
-and outperforms wavefront-based implementations up to 6x with the same FPGA resource.
+and outperforms wavefront-based implementations by up to 6x with the same FPGA resource.
 %%%
 %%%Next-generation sequencing is one of the most burgeoning technologies for biological research and clinical applications.
 %%%A sequencer generates billions of reads collected from a single human sample.
@@ -566,7 +558,7 @@ read alignment; Smith-Waterman; FPGA; HLS; multilevel scheduling
 %%%% conference papers do not normally have an appendix
 % use section* for acknowledgement
 \section*{Acknowledgment}
-This work is partially supported by the Intel Corporation (No. 20134321) with the matching fund from the NSF under the Innovation Transition (InTrans) Program (CCF-1436827), 
+This work is partially supported by the Intel Corporation with the matching fund from the NSF under the Innovation Transition (InTrans) Program (CCF-1436827), 
 and by National Science Foundation of China (No. 61301287).
 %%%This work is supported by both the Center for Domain-Specific Computing (CDSC) under the NSF Expeditions in Computing Award CCF-0926127, 
 %%%and by National Science Foundation of China (No.61301287).
