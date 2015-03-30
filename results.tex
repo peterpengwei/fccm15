@@ -5,7 +5,7 @@
 
 Our design is described in HLS C and synthesized using the Vivado HLS \cite{HLS2011}.
 The accelerator engine contains two PE arrays, each composed of 50 PEs, and can run at 150MHz on the Xilinx VC707 FPGA evaluation board.
-The FPGA resource utilization is approximately 65\% (LUT: 65.4\%, Reg: 30.7\%). 
+The FPGA resource utilization is approximately 65\% (LUTs: 65.4\%, FFs: 30.7\%, BRAMs: 21.7\%). 
 We use an input with 100M reads, which is a subset collected from a real individual human genome sample (about 500M reads, 120GB FASTQ file) with breast cancer (HCC1954). 
 We verify the outputs of our FPGA implementation with the seed extension step of BWA-MEM to ensure correctness. 
 
@@ -14,10 +14,10 @@ We verify the outputs of our FPGA implementation with the seed extension step of
 To demonstrate the speedup of our accelerator engine over the original BWA-MEM software, 
 an Intel Haswell Xeon server with two 6-core CPUs is used.
 The server can run 24 threads in parallel, with hyperthreading support.
-We compare the execution time of our FPGA implementation with pure software-customized S-W runtimes with 1, 2, 4, 8, 16 and 24 threads, respectively.
+We compare the execution time of our FPGA implementation with pure software-optimized S-W algorithm runtimes with 1, 2, 4, 8, 16 and 24 threads, respectively.
 To make it a fair comparison, only the computation time of the S-W calls (after loading inputs from memory and before storing outputs to memory) is collected for both FPGA and CPU implementations.
 
-Figure \ref{fig:F1C5} shows the performance comparison between our FPGA design and the software BWA-MEM S-W kernel with results normalized to the single-threaded CPU performance.
+Figure \ref{fig:F1C5} shows the performance comparison between our FPGA design and the software BWA-MEM S-W algorithm with results normalized to the single-threaded CPU performance.
 Our FPGA design outperforms the 24-thread CPU by 26.4 times.
 
 \subsection{Speedup Over Wavefront-Based Designs}

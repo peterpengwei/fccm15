@@ -11,10 +11,10 @@ The mapping results are stored in the on-board memory and then sent back to the 
 \subsection{Processing Element (PE) Design}
 A PE realizes the S-W code obtained from the software implementation in BWA-MEM. 
 We design our PE architecture using the high-level synthesis methodology. 
-Unlike wavefront-based solutions which look completely different from the software approach,  
-our design naturally follows the original software approach, which considerably shortens the development period. 
+Unlike wavefront-based solutions that look completely different from the software structure,  
+our design naturally follows the original software structure, which considerably shortens the development period. 
 
-To maximize throughput, we make the initiation interval (II) be equal to 1 (II=1), i.e., calculating one cell of the score matrix per cycle. 
+To maximize throughput, we make the initiation interval (II) of a PE be equal to 1 (II=1), i.e., calculating one cell of the score matrix per cycle. 
 Moreover, a conditional branch logic is implemented to realize pruning. 
 It enlarges the size of each PE by 20\%, but reduces computation effort by over 50\%.  
 %%%To maximize the throughput, we have to make the initiation interval (II) of the inner loop be equal to 1 (II=1). 
@@ -127,7 +127,7 @@ To reduce the overhead, we use only one AXI bus master for each \textit{task dis
 The bus master fetches a group of data that meets the off-chip bandwidth demand of all PEs in the array. 
 We also implement ping-pong buffering by using a pair of BRAM blocks for better performance. 
 After the data are prefetched to BRAM, 
-the distributor will check the flag of the FIFO of each PE one by one to find the available PEs. 
+the distributor checks the flag of the FIFO of each PE one by one to find the available PEs. 
 The \textit{task distributor} then transfers the S-W tasks from BRAM to the FIFOs of the available PEs. 
 This process continues until all the tasks are processed.
 The \textit{result collector} continues monitoring the output FIFO of each PE and obtaining results until all the results are received.

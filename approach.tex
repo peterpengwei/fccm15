@@ -8,7 +8,7 @@ derived from an analysis of the S-W implementation in BWA-MEM.
 %%%From the observations, we find that the wavefront-based architectures are inefficient to be applied in BWA-MEM.
 %%%
 For simplicity without losing generality, 
-we abstract the total resources of an accelerator platform into a given number of unified processing elements (PEs) for illustration. 
+we abstract the total resources of an accelerator platform into a given number of unified processing elements (PEs). 
 We also assume that each PE is capable of producing one value per cycle to fill the 2D table in the DP algorithm. 
 A \textit{kernel} is composed of a group of PEs and can be assigned to execute one S-W task.
 We denote $m$x$n$ as a pair of input strings for the S-W algorithm with length $m$ and $n$. 
@@ -19,11 +19,11 @@ We denote $m$x$n$ as a pair of input strings for the S-W algorithm with length $
 \vspace{1pt}
 
 A sequencer can generate billions of reads from a single individual for analysis in today's NGS flow.
-The huge amount of data generates enormous task-level parallelism, prompting us reexamine the conventional wavefront technique for S-W acceleration.
+The huge amount of data generates enormous task-level parallelism, prompting us to reexamine the conventional wavefront technique for S-W acceleration.
 The conventional wavefront technique exploits the inner-task anti-diagonal parallelism to maximize the speedup for a single task.
 However, the wavefront implementation is not optimal when the task-level parallelism is several orders of magnitude larger than the inner-task parallelism.
-This is because the resources for implementing accelerators is limited.
-For an accelerator platform with limited resources provided, e.g., a FPGA board with a certain amount of LUTs (DSPs, BRAMs, etc.), we must decide if the resources should be used for exploiting task-level parallelism or inner-task parallelism.
+%%%This is because the resources for implementing accelerators is limited.
+For an accelerator platform with limited resources provided, e.g., a FPGA board with a certain amount of LUTs (DSPs, BRAMs, etc.), we must decide if the resources should be allocated for exploiting the task-level parallelism or the inner-task parallelism.
 
 %%%The three designs listed in Table \ref{tab:example} are used to demonstrate the performance impact on low PE utilization.
 %%%We use 40 12x50 S-W tasks as input.
@@ -41,10 +41,10 @@ For an accelerator platform with limited resources provided, e.g., a FPGA board 
 \vspace{1pt}
 
 The sharply varied input sizes of S-W in BWA-MEM result in a considerable waste of resources in wavefront-based designs. 
-For example, a kernel of 10 PEs is only able to reach at most a 65\% resource utilization for a 13x103 input, because the length of the maximal anti-diagonals (13) is not divisible by the number of PEs (10), and it then takes 2 cycles for 10 PEs in filling an anti-diagonal with 13 elements.
+For example, a kernel of 10 PEs is only able to reach at most a 65\% resource utilization for a 13x103 input because the length of the maximal anti-diagonals (13) is not divisible by the number of PEs (10). It takes 2 cycles for 10 PEs in filling an anti-diagonal with 13 elements.
 Figure \ref{fig:F4C2} provides a histogram of the sizes of the shorter strings (bounding the maximum degrees of parallelism) over 10M inputs of randomly selected BWA-MEM S-W tasks. 
 The sizes range from one to 84, and none of them has more than 5\% of the 10M inputs. 
-This significant diversity of input sizes makes it prohibitive to choose one or a few kinds of PEs to avoid wasting resources.
+The significant diversity of input sizes makes it prohibitive to choose one or a few kinds of PEs to avoid wasting resources.
 A better choice is to have each kernel restricted to only one PE, which means the anti-diagonal parallelism gets totally ignored.
 %Assume that there is a kernel of 10 PEs to execute a 10x30 Smith-Waterman task. A 10x30 matrix has 39 anti-diagonal, each of which has at most 10 elements, so it takes 39 cycles for our 10-PE kernel to finish the task. However, the 10 PEs get fully utilized in only 21 cycles and the total PE utilization ratio is only 77\%, because of the filling and draining of the pipeline. The filling and draining inefficiency can be ignored if the input size is relatively large compared to the kernel size, e.g. a 10x10,000 task on a 10-PE kernel, but the inputs of BWA-MEM Smith-Waterman do not fall into this category. Figure \ref{fig:F4C2} provides a histogram of the lengths of the shorter strings (bounding the maximum degrees of parallelism) over 10 million randomly selected BWA-MEM Smith-Waterman tasks. The average length of the shorter strings is only 34 and approximately 25\% of the inputs has their shorter strings less than 10 in length. Configuring each kernel in a large size will surely lead to a low resource utilization rate in BWA-MEM.
 %Another source of inadequate utilization comes from the irregular sizes of inputs. For a kernel of 10 PEs fed by a 13x37 Smith-Waterman task, the 13-element anti-diagonal has to consume 2 cycles, and the second cycle calculates only 3 elements, leaving 7 PEs unused and 65\% utilization rate in the two cycles. Admittedly, it has potential for the 10 PEs to calculate elements crossing anti-diagonals, but the control logic of each PE will consequently become much more complicated and take more area, which in turn decrease the number of PEs an accelerator platform can form. Based on our profiling over 10 million randomly selected tasks, the length of the shorter string ranges from 1 up to 84 consecutively, without any number showing up more than 5\%. Therefore, this kind of inefficient utilization is inevitable in BWA-MEM unless each kernel has only 1 PE.
@@ -57,8 +57,8 @@ Derived from the X-dropoff pruning strategy in BLAST \cite{BLAST1990},
 BWA-MEM's pruning strategy is able to save over 50\% in computation efforts for S-W tasks, as illustrated in Figure \ref{fig:F2C2}. 
 %%%BWA-MEM's pruning strategy is able to save over 50\% in computation efforts for S-W tasks, as discussed in Section \ref{subsec:Smith-Waterman}. 
 However, the pruning strategy destroys the basis of the anti-diagonal parallelism, as described in detail in \cite{BWA-MEM}. 
-Moreover, the results generated by the customized S-W in BWA-MEM will be slightly different from those obtained by the standard S-W. 
-This increases the difficulty of integrating existing wavefront-based work into BWA-MEM for verification concerns. 
+Moreover, the results generated by the optimized S-W algorithm in BWA-MEM will be slightly different from those obtained by the standard S-W algorithm. 
+This increases the difficulty of integrating existing wavefront-based work into BWA-MEM. 
 Even if the difficulty of integration can be overcome, 
 the potential speedup from pruning would have to be sacrificed due to its incompatibility with the wavefront technique.
 It will be even worse when the sizes of seeds become longer, which is the future trend for NGS.
