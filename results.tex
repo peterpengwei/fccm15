@@ -13,29 +13,28 @@ We verify the outputs of our FPGA implementation with the seed extension step of
 
 To demonstrate the speedup of our accelerator engine over the original BWA-MEM software, 
 an Intel Haswell Xeon server with two 6-core CPUs is used.
-The server can run 24 threads in parallel, with hyperthreading support.
+The server can run 24 threads in parallel, with hyper-threading support.
 We compare the execution time of our FPGA implementation with pure software-optimized S-W algorithm runtimes with 1, 2, 4, 8, 16 and 24 threads, respectively.
-To make it a fair comparison, only the computation time of the S-W calls (after loading inputs from memory and before storing outputs to memory) is collected for both FPGA and CPU implementations.
+To make a fair comparison, only the computation time of the S-W calls (after loading inputs from memory and before storing outputs to memory) is collected.
 
 Figure \ref{fig:F1C5} shows the performance comparison between our FPGA design and the software BWA-MEM S-W algorithm with results normalized to the single-threaded CPU performance.
 Our FPGA design outperforms the 24-thread CPU by 26.4 times.
 
 \subsection{Speedup Over Wavefront-Based Designs}
 
-To highlight the advantage of our design over wavefront-based solutions, 
-we compare the runtime of our accelerator engine to those of a set of wavefront-based FPGA implementations described in \cite{Zhang2007}. To arrive at a fair comparison, we try to implement all designs with roughly the same FPGA resource utilization.
+To highlight the advantage of our design over wavefront-based techniques, 
+we compare the runtime of our accelerator engine to those of a set of wavefront-based FPGA implementations described in \cite{Zhang2007}. To arrive at a fair comparison, we implement all designs with roughly the same FPGA resource utilization.
 
 Table \ref{tab:configuration} shows the wavefront-based designs that we implemented for comparison. 
 A design containing $n$ kernels with $m$ PE per kernel is denoted by $m$Px$n$K. 
 We use the 32Px5K configuration as the base unit for comparison.
-We find that the performance of the wavefront-based designs generally decreases when the number of PEs per kernel ($m$) increases.
-although the performance does not decrease fully monotonically, as shown in Figure \ref{fig:F2C5}.
+We find that the performance of the wavefront-based designs generally decreases when the number of PEs per kernel ($m$) increases, though the performance does not decrease fully monotonically, as shown in Figure \ref{fig:F2C5}.
 In general, this verifies that the wavefront-based designs have worse PE utilization rates compared to our design. 
 
 \begin{figure}[!hbt]
 	\begin{center}
 		\includegraphics[width=2.5in]{Figures/F1C5.jpg}
-		\caption {Performance comparison between our FPGA design and the multi-threaded BWA-MEM software in doing S-W. A base-2 logarithmic scale is used for the Y axis to denote the normalized performance.}
+		\caption {Performance comparison between our FPGA design and the multi-threaded BWA-MEM software in doing the S-W algorithm. A base-2 logarithmic scale is used for the Y axis to denote the normalized performance.}
 		\label{fig:F1C5}
 	\end{center}
 \end{figure}
@@ -57,7 +56,7 @@ the only difference between our design and the 1Px116K design is whether the pru
 Compared to the 1Px116K design, our design shows about 2x speedup.
 %%% even though the number of PEs in our design is only 100, which is 16 PEs fewer than that of 1Px116K. 
 Our current design uses reads with a length of 101bp.
-Since the trend of NGS will generate longer reads in the future, the performance improvement lead by pruning is expected to be much more significant.
+Since the NGS flow will generate longer reads in the future, the performance improvement from pruning is expected to be much more significant.
 %%%
 %%%We need to mention that resources can be saved when more PEs are integrated into one kernel for the wavefront-based designs.
 %%%First, the PEs in one kernel can share one copy of control logics. A design with a large number of kernels spends more resources on the control logics.

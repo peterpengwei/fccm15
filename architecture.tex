@@ -2,20 +2,20 @@
 \label{sec:architecture}
 \subsection{Overall Architecture}
 
-Our accelerator engine consists of multiple PE arrays, each with a task distributor connected to the off-chip memory via an AXI bus interface, as shown in Figure \ref{fig:overall_architecture}.
-Each PE acts as one kernel and can take one S-W task to maximize throughput.
+Our accelerator engine consists of multiple PE arrays. Each PE array has a task distributor connected to the off-chip memory via an AXI bus interface, as shown in Figure \ref{fig:overall_architecture}.
+Each PE acts as one kernel and can take one S-W task at a time to maximize throughput.
 
 Before the accelerator starts to operate, the host processor assembles a set of query and target sequence pairs and streams them to the on-board DDR3 memory via the PCIe bus. 
 After that, each PE array's task distributor fetches a certain number of sequence pairs and distributes them to the idled PEs. 
 The mapping results are stored in the on-board memory and then sent back to the host.
 \subsection{Processing Element (PE) Design}
-With the use of the high-level synthesis methodology, the hardware structure of a PE is created based on the S-W software code obtained from the software implementation of BWA-MEM.
+By using the high-level synthesis methodology, the hardware structure of a PE is created based on the S-W software code obtained from the software implementation of BWA-MEM.
 %%%A PE realizes the S-W code obtained from the software implementation in BWA-MEM. 
 %%%We design our PE architecture using the high-level synthesis methodology. 
 Unlike wavefront-based solutions that look completely different from the software structure,  
-our design naturally follows the original software structure, which considerably shortens the development period. 
+our design naturally follows the original software structure, which considerably shortens the development cycle. 
 
-To maximize throughput, we make the initiation interval (II) of the PE design be equal to 1 (II=1), i.e., calculating one cell of the score matrix per cycle. 
+To maximize throughput, we make the initiation interval (II) of the PE design be equal to one (II=1), i.e., calculating one cell of the score matrix per cycle. 
 Moreover, a conditional branch logic is implemented to realize pruning. 
 It enlarges the size of each PE by 20\%, but reduces computation effort by over 50\%.  
 %%%To maximize the throughput, we have to make the initiation interval (II) of the inner loop be equal to 1 (II=1). 
@@ -103,7 +103,7 @@ It enlarges the size of each PE by 20\%, but reduces computation effort by over 
 \begin{figure}[!hbt]
 \begin{center}
 \includegraphics[width=2.5in]{Figures/Figure_Arch1.jpg}
-\caption {Overall architecture of the proposed accelerator engine.} \label{fig:overall_architecture} \end{center} \end{figure}
+\caption {An overall architecture of the proposed accelerator engine.} \label{fig:overall_architecture} \end{center} \end{figure}
 \vspace{-10pt}
 
 \subsection{Two-Level Task Scheduling}
@@ -125,7 +125,7 @@ The \textit{result collector} receives mapping results from each PE through a FI
 If a centralized \textit{task distributor} is not provided, each PE needs to fetch data from on-board memory independently. 
 This incurs a significant (25\%) area overhead per PE to synthesize its own AXI interface. 
 To reduce the overhead, we use only one AXI bus interface for each \textit{task distributor} per PE array. 
-A PE array, acting as an AXI bus master, fetches a group of data that meets the off-chip bandwidth demand of all PEs in the array. 
+A PE array, acting as an AXI bus master, fetches a group of data that satisfy the off-chip bandwidth demand of all PEs in the array. 
 We also implement ping-pong buffering by using a pair of BRAM blocks for better performance. 
 After the data are prefetched to BRAM, 
 the distributor checks the flag of the FIFO of each PE one by one to find an available PE. 
@@ -133,11 +133,11 @@ The \textit{task distributor} then transfers the S-W tasks from BRAM to the FIFO
 This process continues until all the tasks are processed.
 The \textit{result collector} continues monitoring the output FIFO of each PE and obtaining results until all the results are received.
 
-If the number of PEs is small, the first level of task scheduling is sufficient. 
+If the number of PEs is small, the one-level task scheduling is sufficient. 
 However, when the number of PEs is increased to a certain point, e.g., 50,  
 the distributor becomes a performance bottleneck due to its round-robin task scheduling scheme.
-Therefore, we introduce a second level of task scheduling which feeds tasks to multiple arrays, each with its own \textit{task distributor}. 
-This two-level hierarchy provides us with a design methodology for obtaining scalable speedup with more PE arrays.
+Therefore, we introduce a two-level task scheduling scheme which feeds tasks to multiple arrays, each with its own \textit{task distributor}. 
+This two-level hierarchy provides us with a scalable design methodology for obtaining scalable speedup.
 %%%
 %%%
 %%%%\subsection{High-level Synthesis Implementation}
