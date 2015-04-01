@@ -18,7 +18,7 @@ The huge amount of data generates enormous task-level parallelism, prompting us 
 The conventional wavefront technique exploits the inner-task anti-diagonal parallelism to maximize the speedup for a single task.
 However, the wavefront implementation is not optimal when the task-level parallelism is several orders of magnitude larger than the inner-task parallelism.
 %%%This is because the resources for implementing accelerators is limited.
-For an accelerator platform with limited resources provided, e.g., a FPGA board with a certain amount of LUTs (DSPs, BRAMs, etc.), we must decide if the resources should be allocated for exploiting the task-level parallelism or the inner-task parallelism.
+For an accelerator platform with limited resources, e.g., a FPGA board with a certain amount of LUTs (DSPs, BRAMs, etc.), we must decide if the resources should be allocated for exploiting the task-level parallelism or the inner-task parallelism.
 
 %%%The three designs listed in Table \ref{tab:example} are used to demonstrate the performance impact on low PE utilization.
 %%%We use 40 12x50 S-W tasks as input.
@@ -42,7 +42,7 @@ A \textit{kernel} is composed of a group of PEs and can be assigned to execute o
 We denote $m$x$n$ as a pair of input strings for the S-W algorithm with length $m$ and $n$. 
 
 The sharply varied input sizes of S-W in BWA-MEM result in a considerable waste of resources in wavefront-based designs. 
-For example, a kernel of 10 PEs is only able to reach at most a 65\% resource utilization for a 13x103 input because the length of the maximal anti-diagonals (13) is not divisible by the number of PEs (10). It takes 2 cycles for 10 PEs in filling an anti-diagonal with 13 elements.
+For example, a kernel of 10 PEs is only able to reach a maximum of 65\% resource utilization for a 13x103 input because the length of the maximal anti-diagonals (13) is not divisible by the number of PEs (10). It takes 2 cycles for 10 PEs to fill an anti-diagonal with 13 elements.
 Figure \ref{fig:F4C2} provides a histogram of the sizes of the shorter strings (bounding the maximum degrees of parallelism) over 10M inputs of randomly selected BWA-MEM S-W tasks. 
 The sizes range from one to 84, and none of them has more than 5\% of the 10M inputs. 
 The significant diversity of input sizes makes it prohibitive to choose one or a few kinds of PEs to avoid wasting resources.
@@ -77,8 +77,8 @@ It will be even worse when the sizes of seeds become longer, which is the future
 
 \begin{figure}[!hbt]
 	\begin{center}
-		\includegraphics[width=2.5in]{Figures/Figure2C2.jpg}
-		\caption {A 55x105 BWA-MEM Smith-Waterman task. The general S-W algorithm requires filling up a 55x105 matrix (5775 elements), but only 2836 elements (49\%) were actually filled with the help of pruning. The shaded area in the left graph illustrates the elements that got filled, and the right graph shows how many elements for each target loop index are actually calculated.}
+		\includegraphics[width=2.8in]{Figures/Figure2C2.jpg}
+		\caption {A 55x105 BWA-MEM Smith-Waterman task. The general S-W algorithm requires filling up a 55x105 matrix (5775 elements), but only 2836 elements (49\%) were actually filled with the help of pruning. The black area in the left graph illustrates the elements that got filled, and the right graph shows how many elements for each target loop index are actually calculated.}
 		\label{fig:F2C2}
 	\end{center}
 \end{figure}

@@ -21,7 +21,7 @@ The mapping of seeds to the reference genome must be exact, i.e., no gap or mism
 A backward search algorithm based on the Burrows-Wheeler Transform (BWT) \cite{BWT} takes only O($m$) time for a seed of length $m$ to map to the super-long reference genome, independent of the size of the reference genome, and therefore is employed by almost all contemporary sequence aligners.
 
 In the second step, each seed map gets extended leftward and rightward to span the entire read. 
-The extensions allow inexact mappings, in which gaps and mismatches are allowed. A predefined scoring function is provided for evaluating the effectiveness of inexact mappings. Only the ones achieving high enough scores are recorded in the output. 
+The extensions allow inexact mappings, in which gaps and mismatches are allowed. A predefined scoring function is provided for evaluating the effectiveness of inexact mappings. Only the ones that achieve high enough scores are recorded in the output. 
 The Smith-Waterman (S-W) algorithm, a dynamic programming (DP) algorithm with quadratic time complexity, is a commonly used approach for the inexact mapping step. 
 It is the main computation bottleneck in state-of-the-art aligners like BWA-MEM (30\%-50\% computation time) \cite{BWA-MEM}. 
 In this work we focus on accelerating the S-W algorithm in BWA-MEM. The methodology, however, can be applied to other aligners, such as Bowtie 2 \cite{Bowtie2} and LAST \cite{LAST}. 
@@ -35,7 +35,7 @@ Conventional approaches overemphasize the inner-task parallelism while neglectin
 Second, conventional wavefront-based architectures cannot utilize computational resources efficiently when the input sizes vary sharply. 
 Third, the pruning heuristic used in BWA-MEM prevents the wavefront-based techniques from being adopted directly and efficiently.
 
-In this paper, we propose an architecture to address these issues.
+In this paper we propose an architecture to address these issues.
 The novelties of our architecture can be summarized as follows: 
 (1) we propose an array-based architecture for processing the enormous number of reads in a high-throughput fashion, adapting better to inputs with widely varied sizes; 
 (2) we provide a two-level hierarchical architecture for resource management, reducing the amount of resources needed for synthesizing bus interfaces while satisfying the off-chip bandwidth demand;

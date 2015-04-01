@@ -109,8 +109,7 @@ It enlarges the size of each PE by 20\%, but reduces computation effort by over 
 \subsection{Two-Level Task Scheduling}
 
 The first level of task scheduling resides in a PE array. 
-A PE array includes three types of major components: (1) a \textit{task distributor}, (2) a set of \textit{PEs}, and (3) a \textit{result collector}, 
-as shown in Figure \ref{fig:schedule_structure}.
+A PE array includes three types of major components: (1) a \textit{task distributor}, (2) a set of \textit{PEs}, and (3) a \textit{result collector} (as shown in Figure \ref{fig:schedule_structure}).
 The \textit{task distributor} fetches data from the on-board DRAM to the on-chip BRAM and dynamically dispatches the tasks to each PE through a FIFO.
 %%%A PE array contains a number of PEs to read data from their own FIFOs and process the S-W tasks in parallel.
 The \textit{result collector} receives mapping results from each PE through a FIFO and packs them together for the host.

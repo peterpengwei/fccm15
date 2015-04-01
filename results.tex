@@ -14,11 +14,11 @@ We verify the outputs of our FPGA implementation with the seed extension step of
 To demonstrate the speedup of our accelerator engine over the original BWA-MEM software, 
 an Intel Haswell Xeon server with two 6-core CPUs is used.
 The server can run 24 threads in parallel, with hyper-threading support.
-We compare the execution time of our FPGA implementation with pure software-optimized S-W algorithm runtimes with 1, 2, 4, 8, 16 and 24 threads, respectively.
+We compare the execution time of our FPGA implementation to pure software-optimized S-W algorithm runtimes with 1, 2, 4, 8, 16 and 24 threads.
 To make a fair comparison, only the computation time of the S-W calls (after loading inputs from memory and before storing outputs to memory) is collected.
 
 Figure \ref{fig:F1C5} shows the performance comparison between our FPGA design and the software BWA-MEM S-W algorithm with results normalized to the single-threaded CPU performance.
-Our FPGA design outperforms the 24-thread CPU by 26.4 times.
+Our FPGA design outperforms the 24-thread CPU by 26.4x.
 
 \subsection{Speedup Over Wavefront-Based Designs}
 
@@ -34,7 +34,7 @@ In general, this verifies that the wavefront-based designs have worse PE utiliza
 \begin{figure}[!hbt]
 	\begin{center}
 		\includegraphics[width=2.5in]{Figures/F1C5.jpg}
-		\caption {Performance comparison between our FPGA design and the multi-threaded BWA-MEM software in doing the S-W algorithm. A base-2 logarithmic scale is used for the Y axis to denote the normalized performance.}
+		\caption {Performance comparison between our FPGA design and the multithreaded BWA-MEM software. A base-2 logarithmic scale is used for the Y axis to denote the normalized performance.}
 		\label{fig:F1C5}
 	\end{center}
 \end{figure}
@@ -51,7 +51,7 @@ In general, this verifies that the wavefront-based designs have worse PE utiliza
 \vspace{-10pt}
 
 Furthermore, Figure \ref{fig:F2C5} also demonstrates the power of pruning. 
-When the wavefront design goes to the extreme where a kernel is restricted to have only one PE (1Px116K), 
+When the wavefront design goes to the extreme where a kernel is restricted to only one PE (1Px116K), 
 the only difference between our design and the 1Px116K design is whether the pruning logics are realized. 
 Compared to the 1Px116K design, our design shows about 2x speedup.
 %%% even though the number of PEs in our design is only 100, which is 16 PEs fewer than that of 1Px116K. 
